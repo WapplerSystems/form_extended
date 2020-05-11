@@ -1,0 +1,46 @@
+TYPO3:
+  CMS:
+    Form:
+
+      formManager:
+        translationFile:
+          10: 'EXT:form/Resources/Private/Language/Database.xlf'
+          20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
+
+      prototypes:
+        standard:
+          formEditor:
+            translationFile:
+              10: 'EXT:form/Resources/Private/Language/Database.xlf'
+              20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
+
+      mixins:
+        formElementMixins:
+          ExtendedAttributesMixin:
+            formEditor:
+              editors:
+                710:
+                  identifier: 'info'
+                  templateName: 'Inspector-TextareaEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.info.label'
+                  propertyPath: 'properties.info'
+                750:
+                  identifier: 'hideTitle'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label'
+                  propertyPath: 'properties.hideTitle'
+                760:
+                  identifier: 'hideOnSummaryPage'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideOnSummaryPage.label'
+                  propertyPath: 'properties.hideOnSummaryPage'
+                770:
+                  identifier: 'hideInReceiverEmail'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideInReceiverEmail.label'
+                  propertyPath: 'properties.hideInReceiverEmail'
+                780:
+                  identifier: 'hideInSenderEmail'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideInSenderEmail.label'
+                  propertyPath: 'properties.hideInSenderEmail'

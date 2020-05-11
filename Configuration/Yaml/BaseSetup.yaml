@@ -1,0 +1,62 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Text:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+              formEditor:
+                propertyCollections:
+                  validators:
+                    80:
+                      editors:
+                        500:
+                          identifier: 'customErrorMessage'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Fehlermeldungstext'
+                          propertyPath: 'options.customErrorMessage'
+
+            Password:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            AdvancedPassword:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            Textarea:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            Checkbox:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            MultiCheckbox:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            MultiSelect:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            RadioButton:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            SingleSelect:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            DatePicker:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            Form:
+              renderingOptions:
+                templateRootPaths:
+                  74: 'EXT:form_extended/Resources/Private/Frontend/Templates/'
+                partialRootPaths:
+                  74: 'EXT:form_extended/Resources/Private/Frontend/Partials/'

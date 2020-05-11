@@ -1,0 +1,8 @@
+module.tx_form {
+    settings {
+        yamlConfigurations {
+            120 = EXT:form_extended/Configuration/Yaml/BaseSetup.yaml
+            121 = EXT:form_extended/Configuration/Yaml/FormEditorSetup.yaml
+        }
+    }
+}
