@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended">
+        <header/>
+        <body>
+            <trans-unit id="doubleoptin.email.text" xml:space="preserve">
+                <source><![CDATA[Thanks you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:]]></source>
+            </trans-unit>
+            <trans-unit id="text.success">
+                <source>Thank you, your validation was successful.</source>
+            </trans-unit>
+            <trans-unit id="text.notFound">
+                <source>Unfortunately no matching entry was found for the key.</source>
+            </trans-unit>
+            <trans-unit id="text.alreadyConfirmed">
+                <source>The email address has already been activated.</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

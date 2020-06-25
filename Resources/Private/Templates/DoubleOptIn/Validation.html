@@ -1,0 +1,17 @@
+<f:if condition="{success}">
+    <div class="alert alert-success">
+        <p><f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:text.success" /></p>
+    </div>
+</f:if>
+
+<f:if condition="{notFound}">
+    <div class="alert alert-danger">
+        <p><f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:text.notFound" /></p>
+    </div>
+</f:if>
+
+<f:if condition="{alreadyConfirmed}">
+    <div class="alert alert-danger">
+        <p><f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:text.alreadyConfirmed" /></p>
+    </div>
+</f:if>

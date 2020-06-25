@@ -13,6 +13,46 @@ TYPO3:
             translationFile:
               10: 'EXT:form/Resources/Private/Language/Database.xlf'
               20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      350:
+                        value: 'DoubleOptIn'
+                        label: 'Double Opt-In'
+                propertyCollections:
+                  finishers:
+                    350:
+                      __inheritances:
+                        10: 'TYPO3.CMS.Form.mixins.formElementMixins.formEmailFinisherMixin'
+                      identifier: 'DoubleOptIn'
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'Double Opt-In'
+                        160:
+                          identifier: 'validationPid'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Validation Page ID'
+                          propertyPath: 'options.validationPid'
+                          propertyValidators:
+                            10: 'Integer'
+          finishersDefinition:
+            DoubleOptIn:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.finishersEmailMixin'
+              implementationClassName: 'WapplerSystems\FormExtended\Domain\Finishers\DoubleOptInFormFinisher'
+              options:
+                templatePathAndFilename: 'EXT:form_extended/Resources/Private/Templates/Email/DoubleOptIn.html'
+              formEditor:
+                iconIdentifier: 't3-form-icon-finisher'
+                label: 'Double Opt-In'
+                predefinedDefaults:
+                  options:
+                    givenName: ''
 
       mixins:
         formElementMixins:

@@ -6,3 +6,13 @@ module.tx_form {
         }
     }
 }
+
+plugin.tx_form {
+    settings {
+        yamlConfigurations {
+            30 = EXT:form/Configuration/Yaml/FormEditorSetup.yaml
+            120 = EXT:form_extended/Configuration/Yaml/BaseSetup.yaml
+            121 = EXT:form_extended/Configuration/Yaml/FormEditorSetup.yaml
+        }
+    }
+}
