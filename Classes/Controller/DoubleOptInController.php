@@ -5,9 +5,6 @@ namespace WapplerSystems\FormExtended\Controller;
  * DoubleOptInController
  */
 
-use TYPO3\CMS\Core\Utility\DebugUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
 
 class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -32,13 +29,12 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * action validation
      *
+     * @param string $hash
      * @return void
      */
-    public function validationAction()
+    public function validationAction($hash = '')
     {
-
-        if ($this->request->hasArgument('hash')) {
-            $hash = $this->request->getArgument('hash');
+        if ($hash !== '') {
             /** @var OptIn $optIn */
             $optIn = $this->optInRepository->findOneByValidationHash($hash);
 

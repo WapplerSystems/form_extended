@@ -6,11 +6,24 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
+use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
 use TYPO3\CMS\Form\Service\TranslationService;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
 
-class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
+class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
+
+    /**
+     * @var array
+     */
+    protected $defaultOptions = [
+        'recipientName' => '',
+        'senderName' => '',
+        'format' => self::FORMAT_HTML,
+        'attachUploads' => true,
+        'payloadElements' => [],
+        'validationPid' => null,
+    ];
 
     /**
      * optInRepository
@@ -39,10 +52,12 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $formRuntime = $this->finisherContext->getFormRuntime();
         $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
+        $payloadElementsConfiguration = $this->parseOption('payloadElements');
 
         $email = $formRuntime['email'] ?? null;
 
         $validationPid = $this->parseOption('validationPid');
+
 
         if (empty($email)) {
             throw new FinisherException('The options "email" must be set.', 1527145483);
@@ -53,12 +68,16 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         }
 
 
+
         $standaloneView = $this->initializeStandaloneView($formRuntime);
 
         $optIn = new OptIn();
         $optIn->setEmail($email);
-        //$optIn->setDecodedValues($this->finisherContext->getFormValues());
 
+        if (is_array($payloadElementsConfiguration)) {
+            $payload = $this->prepareData($payloadElementsConfiguration);
+            $optIn->setDecodedValues($payload);
+        }
 
         $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
         $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
@@ -136,5 +155,51 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         //$this->finisherContext->cancel();
     }
 
+
+    /**
+     * Prepare data for saving to database
+     *
+     * @param array $elementsConfiguration
+     * @return mixed
+     */
+    protected function prepareData(array $elementsConfiguration)
+    {
+        $data = [];
+        foreach ($this->getFormValues() as $elementIdentifier => $elementValue) {
+
+            if (!in_array($elementIdentifier,$elementsConfiguration,true)) {
+                continue;
+            }
+
+            $data[$elementIdentifier] = $elementValue;
+        }
+        return $data;
+    }
+
+    /**
+     * Returns the values of the submitted form
+     *
+     * @return array
+     */
+    protected function getFormValues(): array
+    {
+        return $this->finisherContext->getFormValues();
+    }
+
+
+    /**
+     * Returns a form element object for a given identifier.
+     *
+     * @param string $elementIdentifier
+     * @return FormElementInterface|null
+     */
+    protected function getElementByIdentifier(string $elementIdentifier)
+    {
+        return $this
+            ->finisherContext
+            ->getFormRuntime()
+            ->getFormDefinition()
+            ->getElementByIdentifier($elementIdentifier);
+    }
 
 }

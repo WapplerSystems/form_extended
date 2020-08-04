@@ -156,7 +156,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getDecodedValues()
     {
-        return json_decode($this->getEncodedValues());
+        return json_decode($this->getEncodedValues(),true);
     }
 
     public function setDecodedValues(array $values)
