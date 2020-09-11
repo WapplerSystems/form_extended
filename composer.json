@@ -2,30 +2,42 @@
   "name": "wapplersystems/form_extended",
   "type": "typo3-cms-extension",
   "description": "",
+  "keywords": [
+    "TYPO3"
+  ],
+  "homepage": "http://wappler.systems",
+  "authors": [
+    {
+      "name": "Sven Wappler",
+      "role": "Developer",
+      "homepage": "http://wappler.systems"
+    }
+  ],
+  "license": [
+    "GPL-2.0+"
+  ],
+  "require": {
+    "typo3/cms-core": "^8||^9||^10",
+    "typo3/cms-form": "^8||^9||^10"
+  },
+  "require-dev": {
+  },
   "autoload": {
     "psr-4": {
       "WapplerSystems\\FormExtended\\": "Classes"
     }
   },
-  "keywords": [
-    "TYPO3 CMS"
-  ],
-  "authors": [
-    {
-      "name": "Sven Wappler",
-      "email": "info@wappler.systems",
-      "role": "Developer"
+  "autoload-dev": {
+    "psr-4": {
     }
-  ],
-  "require": {
-    "typo3/cms-core": ">=8.7.0,<9.0"
   },
-  "replace": {
-    "wapplersystems/form_extended": "self.version"
+  "scripts": {
   },
-  "homepage": "",
-  "license": "GPL-2.0+",
-  "support": {
-    "issues": ""
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "form_extended",
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
+    }
   }
 }
