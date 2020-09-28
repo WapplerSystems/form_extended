@@ -126,7 +126,10 @@ class FeUserFinisher extends \TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFini
                 $elementValue = $hashInstance->getHashedPassword($elementValue);
             }
 
-            $databaseData[$elementsConfiguration[$elementIdentifier]['mapOnDatabaseColumn']] = $elementValue;
+            $fields = explode(',',$elementsConfiguration[$elementIdentifier]['mapOnDatabaseColumn']);
+            foreach ($fields as $field) {
+                $databaseData[$field] = $elementValue;
+            }
         }
         return $databaseData;
     }
