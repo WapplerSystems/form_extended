@@ -94,6 +94,13 @@ class FeUserFinisher extends \TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFini
             ) {
                 continue;
             }
+            if (
+                ($elementValue === null || $elementValue === '')
+                && isset($elementsConfiguration[$elementIdentifier])
+                && isset($elementsConfiguration[$elementIdentifier]['valueIfValueIsEmpty'])
+            ) {
+                $elementValue = $elementsConfiguration[$elementIdentifier]['valueIfValueIsEmpty'];
+            }
 
             $element = $this->getElementByIdentifier($elementIdentifier);
             if (
