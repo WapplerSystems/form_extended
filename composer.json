@@ -17,7 +17,7 @@
     "GPL-2.0+"
   ],
   "require": {
-    "typo3/cms-form": "^8"
+    "typo3/cms-form": "^10"
   },
   "require-dev": {
   },
@@ -35,8 +35,7 @@
   "extra": {
     "typo3/cms": {
       "extension-key": "form_extended",
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web"
+      "cms-package-dir": "{$vendor-dir}/typo3/cms"
     }
   }
 }
