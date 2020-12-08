@@ -54,9 +54,19 @@ TYPO3:
               __inheritances:
                 70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
 
+            CountrySelect:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.FormElementMixin'
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+              implementationClassName: 'WapplerSystems\FormExtended\Domain\Model\FormElements\CountrySelect'
+
             Form:
               renderingOptions:
                 templateRootPaths:
                   74: 'EXT:form_extended/Resources/Private/Frontend/Templates/'
                 partialRootPaths:
                   74: 'EXT:form_extended/Resources/Private/Frontend/Partials/'
+
+            PrivacyPolicyCheckbox:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.prototypes.standard.formElementsDefinition.Checkbox'

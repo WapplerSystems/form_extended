@@ -1,16 +1,13 @@
 <?php
 namespace WapplerSystems\FormExtended\Domain\Finishers;
 
-use TYPO3\CMS\Core\Utility\DebugUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
-use WapplerSystems\FormExtended\Domain\Model\OptIn;
 use TYPO3\CMS\Core\Mail\MailMessage;
-use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
-use TYPO3\CMS\Form\Service\TranslationService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
+use TYPO3\CMS\Form\Service\TranslationService;
+use WapplerSystems\FormExtended\Domain\Model\OptIn;
 
 class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
