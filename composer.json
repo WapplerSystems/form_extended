@@ -17,7 +17,6 @@
     "GPL-2.0+"
   ],
   "require": {
-    "typo3/cms-form": "^8"
   },
   "require-dev": {
   },
