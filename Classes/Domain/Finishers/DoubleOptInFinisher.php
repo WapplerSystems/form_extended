@@ -68,7 +68,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         }
 
 
-
         $standaloneView = $this->initializeStandaloneView($formRuntime);
 
         $optIn = new OptIn();
@@ -90,7 +89,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
-
 
         $standaloneView->assign('optIn', $optIn);
         $standaloneView->assign('validationPid', $validationPid);
@@ -150,9 +148,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         }
 
         $mail->send();
-
-        /* Cancel */
-        //$this->finisherContext->cancel();
     }
 
 

@@ -49,7 +49,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $optIn->setValidationDate(new \DateTime);
                 $this->optInRepository->update($optIn);
 
-                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
+                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$this, $optIn]);
 
                 if (isset($this->settings['forward']) && (int)$this->settings['forward'] > 0) {
                     $url = $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setTargetPageUid($this->settings['forward'])->build();
