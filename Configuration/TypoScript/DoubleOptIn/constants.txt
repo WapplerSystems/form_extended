@@ -3,4 +3,10 @@ plugin.tx_formextended_doubleoptin {
         # cat=plugin.tx_formextended_doubleoptin//a; type=string; label=Default storage PID
         storagePid =
     }
+
+    settings {
+
+        # cat=plugin.tx_formextended_doubleoptin//b; type=int; label=Page ID of forward page
+        forward =
+    }
 }

@@ -8,6 +8,6 @@ plugin.tx_formextended_doubleoptin {
         storagePid = {$plugin.tx_formextended_doubleoptin.persistence.storagePid}
     }
     settings {
-
+        forward = {$plugin.tx_formextended_doubleoptin.settings.forward}
     }
 }
