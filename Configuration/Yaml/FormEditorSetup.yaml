@@ -2,15 +2,13 @@ TYPO3:
   CMS:
     Form:
       formManager:
-        translationFile:
-          10: 'EXT:form/Resources/Private/Language/Database.xlf'
+        translationFiles:
           20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
 
       prototypes:
         standard:
           formEditor:
-            translationFile:
-              10: 'EXT:form/Resources/Private/Language/Database.xlf'
+            translationFiles:
               20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
             formEditorPartials:
               FormElement-PrivacyPolicyCheckbox: 'Stage/SimpleTemplate'
@@ -56,6 +54,12 @@ TYPO3:
                       350:
                         value: 'DoubleOptIn'
                         label: 'Double Opt-In'
+                      351:
+                        value: 'FeUser'
+                        label: 'FeUser'
+                      352:
+                        value: 'CopyToSenderEmail'
+                        label: 'Send copy to sender'
                 propertyCollections:
                   finishers:
                     350:
@@ -74,6 +78,24 @@ TYPO3:
                           propertyPath: 'options.validationPid'
                           propertyValidators:
                             10: 'Integer'
+                    352:
+                      __inheritances:
+                        10: 'TYPO3.CMS.Form.mixins.formElementMixins.formEmailFinisherMixin'
+                      identifier: 'CopyToSenderEmail'
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'Send copy to sender'
+                        160:
+                          identifier: 'conditionFieldName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Name of the copy checkbox field'
+                          propertyPath: 'options.conditionFieldName'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: NotEmpty
+                            20: FormElementIdentifierWithinCurlyBracesInclusive
           finishersDefinition:
             DoubleOptIn:
               __inheritances:
@@ -92,6 +114,14 @@ TYPO3:
               formEditor:
                 iconIdentifier: 't3-form-icon-finisher'
                 label: 'Frontend User Finisher'
+            CopyToSenderEmail:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.finishersEmailMixin'
+              implementationClassName: 'WapplerSystems\FormExtended\Domain\Finishers\CopyToSenderEmailFinisher'
+              formEditor:
+                iconIdentifier: 't3-form-icon-finisher'
+                label: 'Copy to sender Finisher'
+
 
       mixins:
         formElementMixins:
