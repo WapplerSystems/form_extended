@@ -14,7 +14,6 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * optInRepository
      *
      * @var \WapplerSystems\FormExtended\Domain\Repository\OptInRepository
-     * @inject
      */
     protected $optInRepository = NULL;
 
@@ -22,9 +21,24 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * signalSlotDispatcher
      *
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
      */
     protected $signalSlotDispatcher = NULL;
+
+
+    /**
+     * @param \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository
+     */
+    public function injectOptInRepository($optInRepository) {
+        $this->optInRepository = $optInRepository;
+    }
+
+
+    /**
+     * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
+     */
+    public function injectSignalSlotDispatcher($signalSlotDispatcher) {
+        $this->signalSlotDispatcher = $signalSlotDispatcher;
+    }
 
     /**
      * action validation

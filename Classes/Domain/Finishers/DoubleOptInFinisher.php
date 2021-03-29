@@ -29,7 +29,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
      * optInRepository
      *
      * @var \WapplerSystems\FormExtended\Domain\Repository\OptInRepository
-     * @inject
      */
     protected $optInRepository = NULL;
 
@@ -37,9 +36,25 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
      * signalSlotDispatcher
      *
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
      */
     protected $signalSlotDispatcher = NULL;
+
+
+    /**
+     * @param \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository
+     */
+    public function injectOptInRepository($optInRepository) {
+        $this->optInRepository = $optInRepository;
+    }
+
+
+    /**
+     * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
+     */
+    public function injectSignalSlotDispatcher($signalSlotDispatcher) {
+        $this->signalSlotDispatcher = $signalSlotDispatcher;
+    }
+
 
     /**
      * Executes this finisher
