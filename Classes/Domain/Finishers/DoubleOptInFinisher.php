@@ -1,14 +1,22 @@
 <?php
+
 namespace WapplerSystems\FormExtended\Domain\Finishers;
 
+use Symfony\Component\Mime\Address;
+use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
+use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
 use TYPO3\CMS\Form\Service\TranslationService;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
+use WapplerSystems\FormExtended\Domain\Repository\OptInRepository;
 
 class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
@@ -19,10 +27,15 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
     protected $defaultOptions = [
         'recipientName' => '',
         'senderName' => '',
-        'format' => self::FORMAT_HTML,
         'attachUploads' => true,
         'payloadElements' => [],
         'validationPid' => null,
+        'useFluidEmail' => true,
+        'addHtmlPart' => true,
+        'templateName' => 'DoubleOptIn',
+        'templateRootPaths' => [
+            '21' => 'EXT:form_extended/Resources/Private/Templates/Email/'
+        ]
     ];
 
     /**
@@ -30,20 +43,21 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
      *
      * @var \WapplerSystems\FormExtended\Domain\Repository\OptInRepository
      */
-    protected $optInRepository = NULL;
+    protected \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository;
 
     /**
      * signalSlotDispatcher
      *
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
      */
-    protected $signalSlotDispatcher = NULL;
+    protected \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher;
 
 
     /**
      * @param \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository
      */
-    public function injectOptInRepository($optInRepository) {
+    public function injectOptInRepository(\WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository)
+    {
         $this->optInRepository = $optInRepository;
     }
 
@@ -51,123 +65,187 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
     /**
      * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
      */
-    public function injectSignalSlotDispatcher($signalSlotDispatcher) {
+    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher)
+    {
         $this->signalSlotDispatcher = $signalSlotDispatcher;
     }
 
 
     /**
      * Executes this finisher
+     * @throws FinisherException
      * @see AbstractFinisher::execute()
      *
-     * @throws FinisherException
      */
     protected function executeInternal()
     {
+
+        /* passing options from default options to options for using in EmailFinisher */
+        $this->options['templateRootPaths'] = $this->defaultOptions['templateRootPaths'] ?? '';
+        $this->options['templateName'] = $this->defaultOptions['templateName'] ?? '';
 
         $formRuntime = $this->finisherContext->getFormRuntime();
         $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
         $payloadElementsConfiguration = $this->parseOption('payloadElements');
 
-        $email = $formRuntime['email'] ?? null;
-
+        $senderAddress = $this->parseOption('senderAddress');
+        $senderAddress = is_string($senderAddress) ? $senderAddress : '';
         $validationPid = $this->parseOption('validationPid');
 
-
-        if (empty($email)) {
-            throw new FinisherException('The options "email" must be set.', 1527145483);
+        if (empty($senderAddress)) {
+            throw new FinisherException('A valid sender field and a sender address is required.', 1527145483);
         }
 
         if (empty($validationPid)) {
             throw new FinisherException('The option "validationPid" must be set.', 1527148282);
         }
 
-
-
-        $standaloneView = $this->initializeStandaloneView($formRuntime);
-
+        /* Opt in data set  */
         $optIn = new OptIn();
-        $optIn->setEmail($email);
+        $optIn->setEmail($senderAddress);
 
         if (is_array($payloadElementsConfiguration)) {
             $payload = $this->prepareData($payloadElementsConfiguration);
             $optIn->setDecodedValues($payload);
         }
 
-        $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
-        $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+        $configuration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $storagePid = $configuration['plugin.']['tx_formextended_doubleoptin.']['persistence.']['storagePid'];
         $optIn->setPid($storagePid);
 
+        //$optInRepository = GeneralUtility::makeInstance(OptInRepository::class, $this->objectManager);
         $this->optInRepository->add($optIn);
 
         $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInCreation', [$optIn]);
 
-        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $persistenceManager->persistAll();
+        /* Opt in data set  */
 
 
-        $standaloneView->assign('optIn', $optIn);
-        $standaloneView->assign('validationPid', $validationPid);
-
-        $translationService = TranslationService::getInstance();
-        if (isset($this->options['translation']['language']) && !empty($this->options['translation']['language'])) {
-            $languageBackup = $translationService->getLanguage();
-            $translationService->setLanguage($this->options['translation']['language']);
-        }
-        $message = $standaloneView->render();
-        if (!empty($languageBackup)) {
-            $translationService->setLanguage($languageBackup);
+        $languageBackup = null;
+        // Flexform overrides write strings instead of integers so
+        // we need to cast the string '0' to false.
+        if (
+            isset($this->options['addHtmlPart'])
+            && $this->options['addHtmlPart'] === '0'
+        ) {
+            $this->options['addHtmlPart'] = false;
         }
 
         $subject = $this->parseOption('subject');
-        $recipientAddress = $this->parseOption('recipientAddress');
-        $recipientName = $this->parseOption('recipientName');
-        $senderAddress = $this->parseOption('senderAddress');
+        $recipients = $this->getRecipients('recipients', 'recipientAddress', 'recipientName');
+
         $senderName = $this->parseOption('senderName');
-        $replyToAddress = $this->parseOption('replyToAddress');
-        $carbonCopyAddress = $this->parseOption('carbonCopyAddress');
-        $blindCarbonCopyAddress = $this->parseOption('blindCarbonCopyAddress');
-        $format = $this->parseOption('format');
+        $senderName = is_string($senderName) ? $senderName : '';
+        $replyToRecipients = $this->getRecipients('replyToRecipients', 'replyToAddress');
+        $carbonCopyRecipients = $this->getRecipients('carbonCopyRecipients', 'carbonCopyAddress');
+        $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients', 'blindCarbonCopyAddress');
+        $addHtmlPart = $this->isHtmlPartAdded();
+        $attachUploads = $this->parseOption('attachUploads');
+        $useFluidEmail = $this->parseOption('useFluidEmail');
+        $title = $this->parseOption('title');
+        $title = is_string($title) && $title !== '' ? $title : $subject;
 
         if (empty($subject)) {
             throw new FinisherException('The option "subject" must be set for the EmailFinisher.', 1327060320);
         }
-        if (empty($recipientAddress)) {
-            throw new FinisherException('The option "recipientAddress" must be set for the EmailFinisher.', 1327060200);
+        if (empty($recipients)) {
+            throw new FinisherException('The option "recipients" must be set for the EmailFinisher.', 1327060200);
         }
         if (empty($senderAddress)) {
             throw new FinisherException('The option "senderAddress" must be set for the EmailFinisher.', 1327060210);
         }
 
-        $mail = $this->objectManager->get(MailMessage::class);
+        $formRuntime = $this->finisherContext->getFormRuntime();
 
-        $mail->setFrom([$senderAddress => $senderName])
-            ->setTo([$recipientAddress => $recipientName])
-            ->setSubject($subject);
-
-        if (!empty($replyToAddress)) {
-            $mail->setReplyTo($replyToAddress);
+        $translationService = TranslationService::getInstance();
+        if (is_string($this->options['translation']['language'] ?? null) && $this->options['translation']['language'] !== '') {
+            $languageBackup = $translationService->getLanguage();
+            $translationService->setLanguage($this->options['translation']['language']);
         }
 
-        if (!empty($carbonCopyAddress)) {
-            $mail->setCc($carbonCopyAddress);
+        $mail = $useFluidEmail
+            ? $this
+                ->initializeFluidEmail($formRuntime)
+                ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
+                ->assign('title', $title)
+            : GeneralUtility::makeInstance(MailMessage::class);
+
+        $mail
+            ->from(new Address($senderAddress, $senderName))
+            ->to(...$recipients)
+            ->subject($subject);
+
+        if (!empty($replyToRecipients)) {
+            $mail->replyTo(...$replyToRecipients);
         }
 
-        if (!empty($blindCarbonCopyAddress)) {
-            $mail->setBcc($blindCarbonCopyAddress);
+        if (!empty($carbonCopyRecipients)) {
+            $mail->cc(...$carbonCopyRecipients);
         }
 
-        if ($format === self::FORMAT_PLAINTEXT) {
-            $mail->setBody($message, 'text/plain');
-        } else {
-            $mail->setBody($message, 'text/html');
+        if (!empty($blindCarbonCopyRecipients)) {
+            $mail->bcc(...$blindCarbonCopyRecipients);
         }
 
-        $mail->send();
+        if (!$useFluidEmail) {
+            $parts = [
+                [
+                    'format' => 'Plaintext',
+                    'contentType' => 'text/plain',
+                ],
+            ];
 
-        /* Cancel */
-        //$this->finisherContext->cancel();
+            if ($addHtmlPart) {
+                $parts[] = [
+                    'format' => 'Html',
+                    'contentType' => 'text/html',
+                ];
+            }
+
+            foreach ($parts as $i => $part) {
+                $standaloneView = $this->initializeStandaloneView($formRuntime, $part['format']);
+
+                $standaloneView->assign('optIn', $optIn);
+                $standaloneView->assign('validationPid', $validationPid);
+
+                $message = $standaloneView->render();
+
+                if ($part['contentType'] === 'text/plain') {
+                    $mail->text($message);
+                } else {
+                    $mail->html($message);
+                }
+            }
+        }
+
+        if (!empty($languageBackup)) {
+            $translationService->setLanguage($languageBackup);
+        }
+
+        $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
+
+        if ($attachUploads) {
+            foreach ($elements as $element) {
+                if (!$element instanceof FileUpload) {
+                    continue;
+                }
+                $file = $formRuntime[$element->getIdentifier()];
+                if ($file) {
+                    if ($file instanceof FileReference) {
+                        $file = $file->getOriginalResource();
+                    }
+
+                    $mail->attach($file->getContents(), $file->getName(), $file->getMimeType());
+                }
+            }
+        }
+
+        $useFluidEmail ? GeneralUtility::makeInstance(Mailer::class)->send($mail) : $mail->send();
+
     }
 
 
@@ -182,7 +260,7 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         $data = [];
         foreach ($this->getFormValues() as $elementIdentifier => $elementValue) {
 
-            if (!in_array($elementIdentifier,$elementsConfiguration,true)) {
+            if (!in_array($elementIdentifier, $elementsConfiguration, true)) {
                 continue;
             }
 

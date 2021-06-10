@@ -28,7 +28,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * @param \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository
      */
-    public function injectOptInRepository($optInRepository) {
+    public function injectOptInRepository(\WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository) {
         $this->optInRepository = $optInRepository;
     }
 
@@ -36,7 +36,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
      */
-    public function injectSignalSlotDispatcher($signalSlotDispatcher) {
+    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
         $this->signalSlotDispatcher = $signalSlotDispatcher;
     }
 
