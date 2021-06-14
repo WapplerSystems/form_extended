@@ -3,18 +3,72 @@ TYPO3:
     Form:
       formManager:
         translationFiles:
-          20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
+          20: 'EXT:form_extended/Resources/Private/Language/form.xlf'
 
       prototypes:
         standard:
           formEditor:
             translationFiles:
-              20: 'EXT:form_extended/Resources/Private/Language/Database.xlf'
+              20: 'EXT:form_extended/Resources/Private/Language/form.xlf'
             formEditorPartials:
               FormElement-PrivacyPolicyCheckbox: 'Stage/SimpleTemplate'
               FormElement-CountrySelect: 'Stage/SimpleTemplate'
+
           formElementsDefinition:
+            Text:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+              formEditor:
+                propertyCollections:
+                  validators:
+                    80:
+                      editors:
+                        500:
+                          identifier: 'customErrorMessage'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Fehlermeldungstext'
+                          propertyPath: 'options.customErrorMessage'
+
+            Password:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            AdvancedPassword:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            Textarea:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            Checkbox:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            MultiCheckbox:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            MultiSelect:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            RadioButton:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            SingleSelect:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+            DatePicker:
+              __inheritances:
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+
+
             PrivacyPolicyCheckbox:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.prototypes.standard.formElementsDefinition.Checkbox'
               formEditor:
                 label: 'formEditor.elements.privacyPolicyCheckbox.label'
                 group: select
@@ -32,7 +86,12 @@ TYPO3:
                     propertyValidators:
                       10: 'Integer'
                       20: 'FormElementIdentifierWithinCurlyBracesExclusive'
+
             CountrySelect:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.FormElementMixin'
+                70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
+              implementationClassName: 'WapplerSystems\FormExtended\Domain\Model\FormElements\CountrySelect'
               formEditor:
                 label: 'formEditor.elements.countrySelect.label'
                 group: select
@@ -47,6 +106,14 @@ TYPO3:
                     fieldExplanationText: 'formEditor.elements.SelectionMixin.editor.inactiveOption.fieldExplanationText'
                     doNotSetIfPropertyValueIsEmpty: true
             Form:
+              renderingOptions:
+                templateRootPaths:
+                  74: 'EXT:form_extended/Resources/Private/Frontend/Templates/'
+                partialRootPaths:
+                  74: 'EXT:form_extended/Resources/Private/Frontend/Partials/'
+                translation:
+                  translationFiles:
+                    27: 'EXT:form_extended/Resources/Private/Language/form.xlf'
               formEditor:
                 editors:
                   900:

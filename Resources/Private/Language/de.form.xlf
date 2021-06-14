@@ -26,6 +26,10 @@
                 <source>Country select box</source>
                 <target>Länderauswahl</target>
             </trans-unit>
+            <trans-unit id="element.privacyPolicyCheckbox.properties.description">
+                <source><![CDATA[I have read and accepted the <a href="%s">privacy policy</a>.]]></source>
+                <target><![CDATA[Ich habe die <a href="%s">Datenschutzerklärung</a> gelesen und akzeptiert.]]></target>
+            </trans-unit>
 
 
         </body>
