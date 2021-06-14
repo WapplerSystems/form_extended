@@ -11,12 +11,12 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
 use TYPO3\CMS\Form\Service\TranslationService;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
-use WapplerSystems\FormExtended\Domain\Repository\OptInRepository;
 
 class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
@@ -83,6 +83,9 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         /* passing options from default options to options for using in EmailFinisher */
         $this->options['templateRootPaths'] = $this->defaultOptions['templateRootPaths'] ?? '';
         $this->options['templateName'] = $this->defaultOptions['templateName'] ?? '';
+        if (empty($this->options['subject'])) {
+            $this->options['subject'] = LocalizationUtility::translate('subject.pleaseConfirmEmailAddress', 'form_extended');
+        }
 
         $formRuntime = $this->finisherContext->getFormRuntime();
         $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
@@ -115,7 +118,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         $storagePid = $configuration['plugin.']['tx_formextended_doubleoptin.']['persistence.']['storagePid'];
         $optIn->setPid($storagePid);
 
-        //$optInRepository = GeneralUtility::makeInstance(OptInRepository::class, $this->objectManager);
         $this->optInRepository->add($optIn);
 
         $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInCreation', [$optIn]);
