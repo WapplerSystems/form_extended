@@ -93,6 +93,7 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         $senderAddress = $this->parseOption('senderAddress');
         $senderAddress = is_string($senderAddress) ? $senderAddress : '';
+        $recipientAddress = $this->parseOption('recipientAddress');
         $validationPid = $this->parseOption('validationPid');
 
         if (empty($senderAddress)) {
@@ -105,7 +106,7 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         /* Opt in data set  */
         $optIn = new OptIn();
-        $optIn->setEmail($senderAddress);
+        $optIn->setEmail($recipientAddress);
 
         if (is_array($payloadElementsConfiguration)) {
             $payload = $this->prepareData($payloadElementsConfiguration);
@@ -174,6 +175,8 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
                 ->initializeFluidEmail($formRuntime)
                 ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
                 ->assign('title', $title)
+                ->assign('optIn', $optIn)
+                ->assign('validationPid', $validationPid)
             : GeneralUtility::makeInstance(MailMessage::class);
 
         $mail
