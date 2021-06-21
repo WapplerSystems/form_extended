@@ -10,7 +10,11 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Sven Wappler',
     'author_email' => 'typo3YYYY@wappler.systems',
     'author_company' => 'WapplerSystems',
+    'version' => '11.0.0',
     'constraints' => [
+        'depends' => [
+            'form' => '11.2.1-11.5.99',
+        ],
         'conflicts' => [],
         'suggests' => [],
     ],
