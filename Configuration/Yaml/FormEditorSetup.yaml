@@ -59,14 +59,12 @@ TYPO3:
                 propertyCollections:
                   finishers:
                     350:
-                      __inheritances:
-                        10: 'TYPO3.CMS.Form.mixins.formElementMixins.formEmailFinisherMixin'
                       identifier: 'DoubleOptIn'
                       editors:
-                        __inheritances:
-                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
                         100:
                           label: 'Double Opt-In'
+                          identifier: header
+                          templateName: Inspector-CollectionElementHeaderEditor
                         160:
                           identifier: 'validationPid'
                           templateName: 'Inspector-TextEditor'
@@ -74,10 +72,97 @@ TYPO3:
                           propertyPath: 'options.validationPid'
                           propertyValidators:
                             10: 'Integer'
+                        200:
+                          identifier: subject
+                          templateName: Inspector-TextEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.subject.label
+                          propertyPath: options.subject
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: NotEmpty
+                            20: FormElementIdentifierWithinCurlyBracesInclusive
+                        500:
+                          identifier: senderAddress
+                          templateName: Inspector-TextEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.senderAddress.label
+                          propertyPath: options.senderAddress
+                          enableFormelementSelectionButton: true
+                          propertyValidatorsMode: OR
+                          propertyValidators:
+                            10: NaiveEmail
+                            20: FormElementIdentifierWithinCurlyBracesExclusive
+                          fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.senderAddress.fieldExplanationText
+                        600:
+                          identifier: senderName
+                          templateName: Inspector-TextEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.senderName.label
+                          propertyPath: options.senderName
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: FormElementIdentifierWithinCurlyBracesInclusive
+                          fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.senderName.fieldExplanationText
+                        750:
+                          identifier: replyToRecipients
+                          templateName: Inspector-PropertyGridEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.replyToRecipients.label
+                          propertyPath: options.replyToRecipients
+                          isSortable: true
+                          enableAddRow: true
+                          enableDeleteRow: true
+                          useLabelAsFallbackValue: false
+                          gridColumns:
+                            -
+                              name: value
+                              title: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.gridColumns.value.title
+                            -
+                              name: label
+                              title: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.gridColumns.label.title
+                        850:
+                          identifier: carbonCopyRecipients
+                          templateName: Inspector-PropertyGridEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.carbonCopyRecipients.label
+                          propertyPath: options.carbonCopyRecipients
+                          isSortable: true
+                          enableAddRow: true
+                          enableDeleteRow: true
+                          useLabelAsFallbackValue: false
+                          gridColumns:
+                            -
+                              name: value
+                              title: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.gridColumns.value.title
+                            -
+                              name: label
+                              title: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.gridColumns.label.title
+                        950:
+                          identifier: blindCarbonCopyRecipients
+                          templateName: Inspector-PropertyGridEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.blindCarbonCopyRecipients.label
+                          propertyPath: options.blindCarbonCopyRecipients
+                          isSortable: true
+                          enableAddRow: true
+                          enableDeleteRow: true
+                          useLabelAsFallbackValue: false
+                          gridColumns:
+                            -
+                              name: value
+                              title: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.gridColumns.value.title
+                            -
+                              name: label
+                              title: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.gridColumns.label.title
+                        1400:
+                          identifier: title
+                          templateName: Inspector-TextEditor
+                          label: formEditor.elements.Form.finisher.EmailToSender.editor.title.label
+                          propertyPath: options.title
+                          fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.title.fieldExplanationText
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: FormElementIdentifierWithinCurlyBracesInclusive
+                        9999:
+                          identifier: removeButton
+                          templateName: Inspector-RemoveElementEditor
           finishersDefinition:
             DoubleOptIn:
-              __inheritances:
-                10: 'TYPO3.CMS.Form.mixins.finishersEmailMixin'
               implementationClassName: 'WapplerSystems\FormExtended\Domain\Finishers\DoubleOptInFinisher'
               options:
                 templatePathAndFilename: 'EXT:form_extended/Resources/Private/Templates/Email/DoubleOptIn.html'

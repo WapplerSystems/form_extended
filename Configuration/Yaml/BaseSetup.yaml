@@ -56,7 +56,7 @@ TYPO3:
 
             CountrySelect:
               __inheritances:
-                10: 'TYPO3.CMS.Form.mixins.formElementMixins.FormElementMixin'
+                10: 'TYPO3.CMS.Form.prototypes.standard.formElementsDefinition.SingleSelect'
                 70: 'TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin'
               implementationClassName: 'WapplerSystems\FormExtended\Domain\Model\FormElements\CountrySelect'
 
