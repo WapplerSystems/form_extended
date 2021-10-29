@@ -13,7 +13,7 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'email, given_name, family_name, company, customer_number, validation_hash',
-        'iconfile' => 'EXT:form_extended/Resources/Public/Icons/PluginDoubleOptIn.svg'
+        'iconfile' => 'EXT:form_extended/Resources/Public/Icons/DoubleOptIn.png'
     ],
     'interface' => [
         'showRecordFieldList' => 'email, encoded_values, validation_hash, validation_date, is_validated'
@@ -35,7 +35,7 @@ return [
         ],
         'encoded_values' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_extended/Resources/Private/Language/locallang_db.xlf:tx_formextended_domain_model_optin.email',
+            'label' => 'LLL:EXT:form_extended/Resources/Private/Language/locallang_db.xlf:tx_formextended_domain_model_optin.encoded_values',
             'config' => [
                 'type' => 'text',
                 'readOnly' => 1
