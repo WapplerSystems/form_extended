@@ -26,13 +26,16 @@ class CountrySelect extends \TYPO3\CMS\Form\Domain\Model\FormElements\GenericFor
     {
         parent::__construct($identifier, $type);
 
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        if (class_exists(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository::class)) {
 
-        $countryRepository = $objectManager->get(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository::class);
+            $countryRepository = GeneralUtility::makeInstance(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository::class);
 
-        $countries = $countryRepository->findAll();
+            $countries = $countryRepository->findAll();
 
-        $this->setProperty('countries',$countries);
+            $this->setProperty('countries', $countries);
+        } else {
+            $this->setProperty('countries', []);
+        }
     }
 
 

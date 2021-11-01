@@ -1,0 +1,66 @@
+imports:
+  - { resource: "./Finishers/CopyToSenderEmail.yaml" }
+  - { resource: "./Finishers/DoubleOptIn.yaml" }
+  - { resource: "./Finishers/FeUser.yaml" }
+
+  - { resource: "./FormElements/CountrySelect.yaml" }
+  - { resource: "./FormElements/PrivacyPolicyCheckbox.yaml" }
+
+  - { resource: "./FormElements/Overrides/AdvancedPassword.yaml" }
+  - { resource: "./FormElements/Overrides/Checkbox.yaml" }
+  - { resource: "./FormElements/Overrides/Form.yaml" }
+  - { resource: "./FormElements/Overrides/MultiCheckbox.yaml" }
+  - { resource: "./FormElements/Overrides/MultiSelect.yaml" }
+  - { resource: "./FormElements/Overrides/Password.yaml" }
+  - { resource: "./FormElements/Overrides/RadioButton.yaml" }
+  - { resource: "./FormElements/Overrides/SingleSelect.yaml" }
+  - { resource: "./FormElements/Overrides/Text.yaml" }
+  - { resource: "./FormElements/Overrides/Textarea.yaml" }
+
+
+TYPO3:
+  CMS:
+    Form:
+      formManager:
+        translationFiles:
+          20: 'EXT:form_extended/Resources/Private/Language/form.xlf'
+
+      prototypes:
+        standard:
+          formEditor:
+            translationFiles:
+              20: 'EXT:form_extended/Resources/Private/Language/form.xlf'
+            formEditorPartials:
+              FormElement-PrivacyPolicyCheckbox: 'Stage/SimpleTemplate'
+              FormElement-CountrySelect: 'Stage/SimpleTemplate'
+
+      mixins:
+        formElementMixins:
+          ExtendedAttributesMixin:
+            formEditor:
+              editors:
+                710:
+                  identifier: 'info'
+                  templateName: 'Inspector-TextareaEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.info.label'
+                  propertyPath: 'properties.info'
+                750:
+                  identifier: 'hideTitle'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label'
+                  propertyPath: 'properties.hideTitle'
+                760:
+                  identifier: 'hideOnSummaryPage'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideOnSummaryPage.label'
+                  propertyPath: 'properties.hideOnSummaryPage'
+                770:
+                  identifier: 'hideInReceiverEmail'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideInReceiverEmail.label'
+                  propertyPath: 'properties.hideInReceiverEmail'
+                780:
+                  identifier: 'hideInSenderEmail'
+                  templateName: 'Inspector-CheckboxEditor'
+                  label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideInSenderEmail.label'
+                  propertyPath: 'properties.hideInSenderEmail'

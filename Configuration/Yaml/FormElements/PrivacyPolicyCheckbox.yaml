@@ -1,0 +1,26 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            PrivacyPolicyCheckbox:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.prototypes.standard.formElementsDefinition.Checkbox'
+              formEditor:
+                label: 'formEditor.elements.privacyPolicyCheckbox.label'
+                group: select
+                groupSorting: 100
+                iconIdentifier: 't3-form-icon-checkbox'
+                editors:
+                  660:
+                    identifier: 'pageUid'
+                    templateName: 'Inspector-Typo3WinBrowserEditor'
+                    label: 'Datenschutz Seiten-ID'
+                    buttonLabel: 'formEditor.elements.Form.finisher.Redirect.editor.pageUid.buttonLabel'
+                    browsableType: pages
+                    propertyPath: 'properties.privacyPolicyUid'
+                    propertyValidatorsMode: 'OR'
+                    propertyValidators:
+                      10: 'Integer'
+                      20: 'FormElementIdentifierWithinCurlyBracesExclusive'

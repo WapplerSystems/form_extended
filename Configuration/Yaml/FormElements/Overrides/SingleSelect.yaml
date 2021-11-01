@@ -1,0 +1,9 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            SingleSelect:
+              __inheritances:
+                70: TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin

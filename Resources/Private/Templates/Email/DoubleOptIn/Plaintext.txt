@@ -1,0 +1,10 @@
+<f:layout name="SystemEmail" />
+<f:section name="Title">{title}</f:section>
+<f:section name="Main">
+
+<f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:doubleoptin.email.text" />
+
+{f:uri.action(pageUid: validationPid, extensionName: 'formextended', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash}) -> f:format.raw()}
+
+
+</f:section>

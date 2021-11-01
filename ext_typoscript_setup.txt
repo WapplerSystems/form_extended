@@ -1,8 +1,7 @@
 module.tx_form {
     settings {
         yamlConfigurations {
-            320 = EXT:form_extended/Configuration/Yaml/BaseSetup.yaml
-            321 = EXT:form_extended/Configuration/Yaml/FormEditorSetup.yaml
+            321 = EXT:form_extended/Configuration/Yaml/FormSetup.yaml
         }
     }
 }
@@ -10,8 +9,7 @@ module.tx_form {
 plugin.tx_form {
     settings {
         yamlConfigurations {
-            320 = EXT:form_extended/Configuration/Yaml/BaseSetup.yaml
-            321 = EXT:form_extended/Configuration/Yaml/FormEditorSetup.yaml
+            321 = EXT:form_extended/Configuration/Yaml/FormSetup.yaml
         }
     }
 }
