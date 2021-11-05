@@ -16,7 +16,6 @@ return [
         'iconfile' => 'EXT:form_extended/Resources/Public/Icons/DoubleOptIn.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'email, encoded_values, validation_hash, validation_date, is_validated'
     ],
     'types' => [
         '1' => [
