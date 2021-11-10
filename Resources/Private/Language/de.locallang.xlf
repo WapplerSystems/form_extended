@@ -13,11 +13,11 @@
             </trans-unit>
             <trans-unit id="text.notFound">
                 <source>Unfortunately no matching entry was found for the key.</source>
-                <target>Leider wurde kein passender Eintrag für den Schlüssel gefunden.</target>
+                <target>Leider wurde kein passender Eintrag zu diesem Schlüssel gefunden.</target>
             </trans-unit>
             <trans-unit id="text.alreadyConfirmed">
                 <source>The email address has already been activated.</source>
-                <target>Die E-Mail-Adresse wurde bereits aktiviert.</target>
+                <target>Diese E-Mail-Adresse wurde bereits aktiviert.</target>
             </trans-unit>
             <trans-unit id="subject.pleaseConfirmEmailAddress">
                 <source>Your registration - please confirm your email address</source>
@@ -26,7 +26,7 @@
 
             <trans-unit id="validator.feUsernameAlreadyExists.true">
                 <source>The user name is already in use.</source>
-                <target>Der Benutzername ist leider schon in Verwendung.</target>
+                <target>Der Benutzername ist leider schon vergeben worden, bitte wählen Sie einen anderen.</target>
             </trans-unit>
         </body>
     </file>

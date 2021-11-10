@@ -5,26 +5,29 @@
         <body>
             <trans-unit id="doubleoptin.email.text" xml:space="preserve">
                 <source><![CDATA[Thank you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:]]></source>
+                <target><![CDATA[Danke, dass Sie sich angemeldet haben. Um Ihre E-Mail-Adresse zu verifizieren, klicken Sie bitte auf den folgenden Link oder kopieren Sie ihn in die Adressleiste Ihres Browsers:]]></target>
             </trans-unit>
             <trans-unit id="text.success">
                 <source>Thank you, your validation was successful. You can now login.</source>
+                <target>Merci, votre validation est réussie. Vous pouvez maintenant vous connecter..</target>
             </trans-unit>
             <trans-unit id="text.notFound">
                 <source>Unfortunately no matching entry was found for the key.</source>
+                <target>Malheureusement, aucune entrée correspondante n'a été trouvée pour la clé.</target>
             </trans-unit>
             <trans-unit id="text.alreadyConfirmed">
                 <source>The email address has already been activated.</source>
+                <target>Cette adresse e-mail a déjà été activée.</target>
             </trans-unit>
-
             <trans-unit id="subject.pleaseConfirmEmailAddress">
                 <source>Your registration - please confirm your email address</source>
+                <target>Votre inscription - veuillez confirmer votre adresse électronique.</target>
             </trans-unit>
-
 
             <trans-unit id="validator.feUsernameAlreadyExists.true">
-                <source>The user name is already in use, please choose another one.</source>
+                <source>The user name is already in use.</source>
+                <target>Ce nom d'utilisateur est déjà pris.</target>
             </trans-unit>
-
         </body>
     </file>
 </xliff>
