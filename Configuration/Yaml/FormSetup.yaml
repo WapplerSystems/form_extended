@@ -188,7 +188,8 @@ TYPO3:
               formEditor:
                 iconIdentifier: 't3-form-icon-finisher'
                 label: 'Copy to sender Finisher'
-
+              FormEngine:
+                label: 'Copy to sender Finisher'
 
       mixins:
         formElementMixins:
