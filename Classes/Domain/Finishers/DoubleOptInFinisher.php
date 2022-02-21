@@ -32,10 +32,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         'validationPid' => null,
         'useFluidEmail' => true,
         'addHtmlPart' => true,
-        'templateName' => 'DoubleOptIn',
-        'templateRootPaths' => [
-            '21' => 'EXT:form_extended/Resources/Private/Templates/Email/'
-        ]
     ];
 
     /**
@@ -81,8 +77,6 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
     {
 
         /* passing options from default options to options for using in EmailFinisher */
-        $this->options['templateRootPaths'] = $this->defaultOptions['templateRootPaths'] ?? '';
-        $this->options['templateName'] = $this->defaultOptions['templateName'] ?? '';
         if (empty($this->options['subject'])) {
             $this->options['subject'] = LocalizationUtility::translate('subject.pleaseConfirmEmailAddress', 'form_extended');
         }
@@ -94,6 +88,7 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         $senderAddress = $this->parseOption('senderAddress');
         $senderAddress = is_string($senderAddress) ? $senderAddress : '';
         $recipientAddress = $this->parseOption('recipientAddress');
+        $recipientName = $this->parseOption('recipientName');
         $validationPid = $this->parseOption('validationPid');
 
         if (empty($senderAddress)) {
@@ -139,14 +134,13 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         }
 
         $subject = $this->parseOption('subject');
-        $recipients = $this->getRecipients('recipients', 'recipientAddress', 'recipientName');
 
         $senderName = $this->parseOption('senderName');
         $senderName = is_string($senderName) ? $senderName : '';
-        $replyToRecipients = $this->getRecipients('replyToRecipients', 'replyToAddress');
-        $carbonCopyRecipients = $this->getRecipients('carbonCopyRecipients', 'carbonCopyAddress');
-        $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients', 'blindCarbonCopyAddress');
-        $addHtmlPart = $this->isHtmlPartAdded();
+        $replyToRecipients = $this->getRecipients('replyToRecipients');
+        $carbonCopyRecipients = $this->getRecipients('carbonCopyRecipients');
+        $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients');
+        $addHtmlPart = $this->parseOption('addHtmlPart') ? true : false;
         $attachUploads = $this->parseOption('attachUploads');
         $useFluidEmail = $this->parseOption('useFluidEmail');
         $title = $this->parseOption('title');
@@ -155,16 +149,13 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         if (empty($subject)) {
             throw new FinisherException('The option "subject" must be set for the EmailFinisher.', 1327060320);
         }
-        if (empty($recipients)) {
-            throw new FinisherException('The option "recipients" must be set for the EmailFinisher.', 1327060200);
-        }
         if (empty($senderAddress)) {
             throw new FinisherException('The option "senderAddress" must be set for the EmailFinisher.', 1327060210);
         }
 
         $formRuntime = $this->finisherContext->getFormRuntime();
 
-        $translationService = TranslationService::getInstance();
+        $translationService = GeneralUtility::makeInstance(TranslationService::class);
         if (is_string($this->options['translation']['language'] ?? null) && $this->options['translation']['language'] !== '') {
             $languageBackup = $translationService->getLanguage();
             $translationService->setLanguage($this->options['translation']['language']);
@@ -181,7 +172,7 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         $mail
             ->from(new Address($senderAddress, $senderName))
-            ->to(...$recipients)
+            ->to(...[$recipientName => $recipientAddress])
             ->subject($subject);
 
         if (!empty($replyToRecipients)) {

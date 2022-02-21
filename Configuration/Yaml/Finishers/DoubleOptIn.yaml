@@ -16,9 +16,10 @@ TYPO3:
                 predefinedDefaults:
                   options:
                     subject: ''
-                    recipients: {  }
                     senderAddress: ''
                     senderName: ''
+                    recipientAddress: ''
+                    recipientName: ''
                     replyToRecipients: {  }
                     carbonCopyRecipients: {  }
                     blindCarbonCopyRecipients: {  }

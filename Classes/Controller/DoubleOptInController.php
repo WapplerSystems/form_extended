@@ -5,38 +5,41 @@ namespace WapplerSystems\FormExtended\Controller;
  * DoubleOptInController
  */
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
+use WapplerSystems\FormExtended\Domain\Repository\OptInRepository;
 
-class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DoubleOptInController extends ActionController
 {
 
     /**
      * optInRepository
      *
-     * @var \WapplerSystems\FormExtended\Domain\Repository\OptInRepository
+     * @var OptInRepository
      */
     protected $optInRepository = NULL;
 
     /**
      * signalSlotDispatcher
      *
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @var Dispatcher
      */
     protected $signalSlotDispatcher = NULL;
 
 
     /**
-     * @param \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository
+     * @param OptInRepository $optInRepository
      */
-    public function injectOptInRepository(\WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository) {
+    public function injectOptInRepository(OptInRepository $optInRepository) {
         $this->optInRepository = $optInRepository;
     }
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
+     * @param Dispatcher $signalSlotDispatcher
      */
-    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
+    public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher) {
         $this->signalSlotDispatcher = $signalSlotDispatcher;
     }
 
@@ -63,7 +66,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $optIn->setValidationDate(new \DateTime);
                 $this->optInRepository->update($optIn);
 
-                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
+                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$this,$optIn]);
 
                 if (isset($this->settings['forward']) && (int)$this->settings['forward'] > 0) {
                     $url = $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setTargetPageUid($this->settings['forward'])->build();
