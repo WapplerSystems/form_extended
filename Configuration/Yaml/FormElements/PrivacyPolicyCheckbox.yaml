@@ -11,7 +11,7 @@ TYPO3:
                 label: 'formEditor.elements.privacyPolicyCheckbox.label'
                 group: select
                 groupSorting: 100
-                iconIdentifier: 't3-form-icon-checkbox'
+                iconIdentifier: form-checkbox
                 editors:
                   660:
                     identifier: 'pageUid'

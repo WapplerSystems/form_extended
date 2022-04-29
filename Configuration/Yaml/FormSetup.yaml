@@ -34,6 +34,17 @@ TYPO3:
               FormElement-PrivacyPolicyCheckbox: 'Stage/SimpleTemplate'
               FormElement-CountrySelect: 'Stage/SimpleTemplate'
 
+            formEditorFluidConfiguration:
+              partialRootPaths:
+                780: 'EXT:form_extended/Resources/Private/Backend/Partials/FormEditor/'
+              layoutRootPaths:
+                780: 'EXT:form_extended/Resources/Private/Backend/Layouts/FormEditor/'
+
+            dynamicRequireJsModules:
+              additionalViewModelModules:
+                - 'TYPO3/CMS/FormExtended/Backend/FormEditor/ViewModel'
+
+
       mixins:
         formElementMixins:
           ExtendedAttributesMixin:
@@ -64,3 +75,5 @@ TYPO3:
                   templateName: 'Inspector-CheckboxEditor'
                   label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideInSenderEmail.label'
                   propertyPath: 'properties.hideInSenderEmail'
+
+
