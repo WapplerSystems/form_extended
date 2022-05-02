@@ -7,9 +7,9 @@ TYPO3:
             DoubleOptIn:
               implementationClassName: WapplerSystems\FormExtended\Domain\Finishers\DoubleOptInFinisher
               options:
-                templateName: '{@format}.html'
+                templateName: 'Default'
                 templateRootPaths:
-                  10: 'EXT:form_extended/Resources/Private/Templates/Email/DoubleOptIn/'
+                  20: 'EXT:form_extended/Resources/Private/Templates/Email/DoubleOptIn/'
               formEditor:
                 iconIdentifier: form-finisher
                 label: 'Double Opt-In'
