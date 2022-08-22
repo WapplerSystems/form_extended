@@ -1,0 +1,11 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            FeUser:
+              implementationClassName: WapplerSystems\FormExtended\Domain\Finishers\FeUserFinisher
+              formEditor:
+                iconIdentifier: form-finisher
+                label: 'Frontend User Finisher'
