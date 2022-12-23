@@ -24,6 +24,9 @@
             <trans-unit id="formEditor.elements.countrySelect.label">
                 <source>Country select box</source>
             </trans-unit>
+            <trans-unit id="formEditor.elements.FileUpload.editor.enableMultiple.label">
+                <source>Enable multiple file upload</source>
+            </trans-unit>
 
 
 

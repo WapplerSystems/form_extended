@@ -1,4 +1,5 @@
 imports:
+  - { resource: "./Finishers/AttachUploadsToObject.yaml" }
   - { resource: "./Finishers/CopyToSenderEmail.yaml" }
   - { resource: "./Finishers/DoubleOptIn.yaml" }
   - { resource: "./Finishers/FeUser.yaml" }
@@ -8,6 +9,8 @@ imports:
 
   - { resource: "./FormElements/Overrides/AdvancedPassword.yaml" }
   - { resource: "./FormElements/Overrides/Checkbox.yaml" }
+  - { resource: "./FormElements/Overrides/DatePicker.yaml" }
+  - { resource: "./FormElements/Overrides/FileUpload.yaml" }
   - { resource: "./FormElements/Overrides/Form.yaml" }
   - { resource: "./FormElements/Overrides/MultiCheckbox.yaml" }
   - { resource: "./FormElements/Overrides/MultiSelect.yaml" }

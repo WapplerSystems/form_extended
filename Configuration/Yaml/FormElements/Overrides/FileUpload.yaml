@@ -1,0 +1,14 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            FileUpload:
+              formEditor:
+                editors:
+                  310:
+                    identifier: multiple
+                    templateName: Inspector-CheckboxEditor
+                    label: formEditor.elements.FileUpload.editor.enableMultiple.label
+                    propertyPath: properties.enableMulitple

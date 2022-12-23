@@ -1,0 +1,11 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            AttachUploadsToObject:
+              implementationClassName: WapplerSystems\FormExtended\Domain\Finishers\AttachUploadsToObjectFinisher
+              formEditor:
+                iconIdentifier: form-finisher
+                label: 'Attach uploads to Objects Finisher'

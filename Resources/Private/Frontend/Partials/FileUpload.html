@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
+<formvh:renderRenderable renderable="{element}">
+    <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+        <formvh:form.uploadedResource
+            property="{element.identifier}"
+            as="resource"
+            id="{element.uniqueIdentifier}"
+            class="{element.properties.elementClassAttribute}"
+            errorClass="{element.properties.elementErrorClassAttribute}"
+            additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+            accept="{element.properties.allowedMimeTypes}"
+            multiple="{element.properties.multiple}"
+        >
+            <f:if condition="{resource}">
+                <div id="{element.uniqueIdentifier}-preview">
+                    {resource.originalResource.originalFile.name}
+                </div>
+            </f:if>
+        </formvh:form.uploadedResource>
+        <f:if condition="{element.properties.multiple}">
+            <div id="files-area">
+                <span id="filesList">
+                    <span id="files-names"></span>
+                </span>
+            </div>
+            <f:asset.script identifier="form_extended-fileupload" src="EXT:form_extended/Resources/Public/JavaScript/Frontend/FileUpload.js" />
+            <f:asset.css identifier="form_extended-fileupldad" href="EXT:form_extended/Resources/Public/CSS/FileUpload.css" />
+        </f:if>
+
+    </f:render>
+</formvh:renderRenderable>
+</html>

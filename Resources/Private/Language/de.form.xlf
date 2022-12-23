@@ -26,6 +26,10 @@
                 <source>Country select box</source>
                 <target>Länderauswahl</target>
             </trans-unit>
+            <trans-unit id="formEditor.elements.FileUpload.editor.enableMultiple.label">
+                <source>Enable multiple file upload</source>
+                <target>Aktiviere mehrfachen Datei-Upload</target>
+            </trans-unit>
 
 
         </body>
