@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="flexform.main">
+        <source>Main settings</source>
+        <target state="needs-translation">Main settings</target>
+      </trans-unit>
+      <trans-unit id="flexform.forward">
+        <source>Forward to page</source>
+        <target state="needs-translation">Forward to page</target>
+      </trans-unit>
+      <trans-unit id="tx_formextended_domain_model_optin.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_formextended_domain_model_optin.encoded_values">
+        <source>Values</source>
+        <target state="needs-translation">Values</target>
+      </trans-unit>
+      <trans-unit id="tx_formextended_domain_model_optin.is_validated">
+        <source>Is validated</source>
+        <target state="needs-translation">Is validated</target>
+      </trans-unit>
+      <trans-unit id="tx_formextended_domain_model_optin.validation_hash">
+        <source>Validation hash</source>
+        <target state="needs-translation">Validation hash</target>
+      </trans-unit>
+      <trans-unit id="tx_formextended_domain_model_optin.validation_date">
+        <source>Validation date</source>
+        <target state="needs-translation">Validation date</target>
+      </trans-unit>
+      <trans-unit id="tx_formextended_domain_model_optin">
+        <source>Opt in requests</source>
+        <target state="needs-translation">Opt in requests</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
