@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="ja">
+    <header/>
+    <body>
+      <trans-unit id="doubleoptin.email.text" xml:space="preserve">
+                <source><![CDATA[Thank you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:]]></source>
+            <target state="needs-translation"><![CDATA[Thank you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:]]></target></trans-unit>
+      <trans-unit id="text.success">
+        <source>Thank you, your validation was successful. You can now login.</source>
+        <target state="needs-translation">Thank you, your validation was successful. You can now login.</target>
+      </trans-unit>
+      <trans-unit id="text.notFound">
+        <source>Unfortunately no matching entry was found for the key.</source>
+        <target state="needs-translation">Unfortunately no matching entry was found for the key.</target>
+      </trans-unit>
+      <trans-unit id="text.alreadyConfirmed">
+        <source>The email address has already been activated.</source>
+        <target state="needs-translation">The email address has already been activated.</target>
+      </trans-unit>
+      <trans-unit id="subject.pleaseConfirmEmailAddress">
+        <source>Your registration - please confirm your email address</source>
+        <target state="needs-translation">Your registration - please confirm your email address</target>
+      </trans-unit>
+      <trans-unit id="validator.feUsernameAlreadyExists.true">
+        <source>The user name is already in use.</source>
+        <target state="needs-translation">The user name is already in use.</target>
+      </trans-unit>
+      <trans-unit id="element.privacyPolicyCheckbox.properties.description">
+        <source><![CDATA[I have read and accepted the <a href="%s">privacy policy</a>.]]></source>
+        <target state="needs-translation"><![CDATA[I have read and accepted the <a href="%s">privacy policy</a>.]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
