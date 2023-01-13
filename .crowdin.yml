@@ -1,5 +1,5 @@
 files:
   - source: /Resources/Private/Language/locallang*.xlf
     translation: /%original_path%/%two_letters_code%.%original_file_name%
-  - source: /Resources/Private/Language/Database.xlf
+  - source: /Resources/Private/Language/form.xlf
     translation: /%original_path%/%two_letters_code%.%original_file_name%
