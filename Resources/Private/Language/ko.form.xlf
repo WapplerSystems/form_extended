@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="ko">
+    <header/>
+    <body>
+      <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.info.label" xml:space="preserve">
+                <source>Info</source>
+            <target state="needs-translation">Info</target></trans-unit>
+      <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label" xml:space="preserve">
+                <source>Hide title</source>
+            <target state="needs-translation">Hide title</target></trans-unit>
+      <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideOnSummaryPage.label" xml:space="preserve">
+                <source>Hide on summary page</source>
+            <target state="needs-translation">Hide on summary page</target></trans-unit>
+      <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideInReceiverEmail.label" xml:space="preserve">
+                <source>Hide in receiver email</source>
+            <target state="needs-translation">Hide in receiver email</target></trans-unit>
+      <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideInSenderEmail.label" xml:space="preserve">
+                <source>Hide in sender email</source>
+            <target state="needs-translation">Hide in sender email</target></trans-unit>
+      <trans-unit id="formEditor.elements.privacyPolicyCheckbox.label">
+        <source>Privacy policy checkbox</source>
+        <target state="needs-translation">Privacy policy checkbox</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.countrySelect.label">
+        <source>Country select box</source>
+        <target state="needs-translation">Country select box</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.FileUpload.editor.enableMultiple.label">
+        <source>Enable multiple file upload</source>
+        <target state="needs-translation">Enable multiple file upload</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
