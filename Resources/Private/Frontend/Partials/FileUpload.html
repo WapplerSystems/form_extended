@@ -9,7 +9,7 @@
             errorClass="{element.properties.elementErrorClassAttribute}"
             additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
             accept="{element.properties.allowedMimeTypes}"
-            multiple="{element.properties.multiple}"
+            multiple="{f:if(condition:element.properties.multiple,then:'1')}"
         >
             <f:if condition="{resource}">
                 <div id="{element.uniqueIdentifier}-preview">

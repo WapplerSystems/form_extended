@@ -11,4 +11,4 @@ TYPO3:
                     identifier: multiple
                     templateName: Inspector-CheckboxEditor
                     label: formEditor.elements.FileUpload.editor.enableMultiple.label
-                    propertyPath: properties.enableMulitple
+                    propertyPath: properties.multiple
