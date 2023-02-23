@@ -1,15 +1,16 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
 <formvh:renderRenderable renderable="{element}">
     <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+
         <formvh:form.uploadedResource
-            property="{element.identifier}"
-            as="resource"
-            id="{element.uniqueIdentifier}"
-            class="{element.properties.elementClassAttribute}"
-            errorClass="{element.properties.elementErrorClassAttribute}"
-            additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
-            accept="{element.properties.allowedMimeTypes}"
-            multiple="{f:if(condition:element.properties.multiple,then:'1')}"
+                property="{element.identifier}"
+                as="resource"
+                id="{element.uniqueIdentifier}"
+                class="{element.properties.elementClassAttribute}"
+                errorClass="{element.properties.elementErrorClassAttribute}"
+                additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                accept="{element.properties.allowedMimeTypes}"
+                multiple="{f:if(condition:element.properties.multiple,then:'1')}"
         >
             <f:if condition="{resource}">
                 <div id="{element.uniqueIdentifier}-preview">
@@ -18,9 +19,9 @@
             </f:if>
         </formvh:form.uploadedResource>
         <f:if condition="{element.properties.multiple}">
-            <div id="files-area">
-                <span id="filesList">
-                    <span id="files-names"></span>
+            <div class="files-area">
+                <span class="filesList">
+                    <span class="files-names"></span>
                 </span>
             </div>
             <f:asset.script identifier="form_extended-fileupload" src="EXT:form_extended/Resources/Public/JavaScript/Frontend/FileUpload.js" />
