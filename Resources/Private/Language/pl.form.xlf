@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="de">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="pl">
     <header/>
     <body>
       <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.info.label" xml:space="preserve">
