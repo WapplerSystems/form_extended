@@ -26,6 +26,11 @@ TYPO3:
                       352:
                         value: 'CopyToSenderEmail'
                         label: 'Send copy to sender'
+                  1560:
+                    identifier: tags
+                    templateName: Inspector-TextEditor
+                    label: formEditor.elements.BaseFormElementMixin.editor.label.tags
+                    propertyPath: renderingOptions.tags
                 propertyCollections:
                   finishers:
                     350:

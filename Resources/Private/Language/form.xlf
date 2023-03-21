@@ -27,7 +27,9 @@
             <trans-unit id="formEditor.elements.FileUpload.editor.enableMultiple.label">
                 <source>Enable multiple file upload</source>
             </trans-unit>
-
+            <trans-unit id="formEditor.elements.BaseFormElementMixin.editor.label.tags" xml:space="preserve">
+                <source>Tags</source>
+            </trans-unit>
 
 
         </body>
