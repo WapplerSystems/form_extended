@@ -30,6 +30,9 @@
         <source>Enable multiple file upload</source>
         <target state="needs-translation">Enable multiple file upload</target>
       </trans-unit>
+      <trans-unit id="formEditor.elements.BaseFormElementMixin.editor.label.tags" xml:space="preserve">
+                <source>Tags</source>
+            <target state="needs-translation">Tags</target></trans-unit>
     </body>
   </file>
 </xliff>
