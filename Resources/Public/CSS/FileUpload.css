@@ -1,8 +1,5 @@
-#files-area {
-    margin: 0 auto;
-}
 
-.file-block {
+.multiupload-file-block {
     border-radius: 10px;
     background-color: rgba(144, 163, 203, 0.2);
     margin: 5px;
@@ -10,13 +7,13 @@
     display: inline-flex;
 }
 
-.file-block > span.name {
+.multiupload-file-block > span.name {
     padding-right: 10px;
     width: max-content;
     display: inline-flex;
 }
 
-.file-delete {
+.multiupload-file-delete {
     display: flex;
     width: 24px;
     color: initial;
@@ -27,12 +24,12 @@
     cursor: pointer;
 }
 
-.file-delete:hover {
+.multiupload-file-delete:hover {
     background-color: rgba(144, 163, 203, 0.2);
     border-radius: 10px;
 }
 
-.file-delete > span {
+.multiupload-file-delete > span {
     transform: rotate(45deg);
 }
 

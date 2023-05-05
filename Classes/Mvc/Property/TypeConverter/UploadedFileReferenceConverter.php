@@ -26,44 +26,62 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
      */
     public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
     {
-
-        if (isset($source[0])) {
+        if (is_array($source)) {
             $resources = [];
             foreach ($source as $singleSource) {
-                $resources[] = $this->convertFromSourceToResource($singleSource, $targetType, $convertedChildProperties, $configuration);
+                if (isset($singleSource['tmp_name']) && $singleSource['tmp_name'] === '') {
+                    continue;
+                }
+                if (isset($singleSource['resourcePointer'])) {
+                    $resources = array_merge($resources, $this->convertFromPointerToResource($singleSource, $targetType, $convertedChildProperties, $configuration));
+                } else {
+
+                    $resources[] = $this->convertFromSourceToResource($singleSource, $targetType, $convertedChildProperties, $configuration);
+                }
             }
             return $resources;
         }
         return $this->convertFromSourceToResource($source, $targetType, $convertedChildProperties, $configuration);
     }
 
-    protected function convertFromSourceToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
-
+    protected function convertFromPointerToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
         // slot/listener using `FileDumpController` instead of direct public URL in (later) rendering process
         $resourcePublicationSlot = GeneralUtility::makeInstance(ResourcePublicationSlot::class);
+
         if (!isset($source['error']) || $source['error'] === \UPLOAD_ERR_NO_FILE) {
-            if (isset($source['submittedFile']['resourcePointer'])) {
-                try {
-                    // File references use numeric resource pointers, direct
-                    // file relations are using "file:" prefix (e.g. "file:5")
-                    $resourcePointer = $this->hashService->validateAndStripHmac($source['submittedFile']['resourcePointer']);
-                    if (strpos($resourcePointer, 'file:') === 0) {
-                        $fileUid = (int)substr($resourcePointer, 5);
-                        $resource = $this->createFileReferenceFromFalFileObject($this->resourceFactory->getFileObject($fileUid));
-                    } else {
-                        $resource = $this->createFileReferenceFromFalFileReferenceObject(
-                            $this->resourceFactory->getFileReferenceObject($resourcePointer),
-                            (int)$resourcePointer
-                        );
+
+            if (is_array($source['resourcePointer'] ?? null)) {
+                $resources = [];
+                foreach ($source['resourcePointer'] as $resourcePointerSource) {
+                    try {
+                        // File references use numeric resource pointers, direct
+                        // file relations are using "file:" prefix (e.g. "file:5")
+                        $resourcePointer = $this->hashService->validateAndStripHmac($resourcePointerSource);
+                        if (strpos($resourcePointer, 'file:') === 0) {
+                            $fileUid = (int)substr($resourcePointer, 5);
+                            $resource = $this->createFileReferenceFromFalFileObject($this->resourceFactory->getFileObject($fileUid));
+                        } else {
+                            $resource = $this->createFileReferenceFromFalFileReferenceObject(
+                                $this->resourceFactory->getFileReferenceObject($resourcePointer),
+                                (int)$resourcePointer
+                            );
+                        }
+                        $resourcePublicationSlot->add($resource->getOriginalResource()->getOriginalFile());
+                        $resources[] = $resource;
+                    } catch (\InvalidArgumentException $e) {
+                        // Nothing to do. No file is uploaded and resource pointer is invalid. Discard!
                     }
-                    $resourcePublicationSlot->add($resource->getOriginalResource()->getOriginalFile());
-                    return $resource;
-                } catch (\InvalidArgumentException $e) {
-                    // Nothing to do. No file is uploaded and resource pointer is invalid. Discard!
                 }
+                return $resources;
             }
-            return null;
         }
+        return [];
+    }
+
+    protected function convertFromSourceToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
+        // slot/listener using `FileDumpController` instead of direct public URL in (later) rendering process
+        $resourcePublicationSlot = GeneralUtility::makeInstance(ResourcePublicationSlot::class);
+
 
         if ($source['error'] !== \UPLOAD_ERR_OK) {
             return GeneralUtility::makeInstance(Error::class, $this->getUploadErrorMessage($source['error']), 1471715915);

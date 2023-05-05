@@ -1,9 +1,9 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:fe="http://typo3.org/ns/WapplerSystems/FormExtended/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
 <formvh:renderRenderable renderable="{element}">
     <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
-        <formvh:form.uploadedResource
+        <fe:form.uploadedResource
             property="{element.identifier}"
-            as="resource"
+            as="resources"
             id="{element.uniqueIdentifier}"
             class="{element.properties.elementClassAttribute}"
             errorClass="{element.properties.elementErrorClassAttribute}"
@@ -11,18 +11,20 @@
             accept="{element.properties.allowedMimeTypes}"
             multiple="{f:if(condition:element.properties.multiple,then:'1')}"
         >
-            <f:if condition="{resource}">
-                <div id="{element.uniqueIdentifier}-preview">
-                    {resource.originalResource.originalFile.name}
-                </div>
-            </f:if>
-        </formvh:form.uploadedResource>
-        <f:if condition="{element.properties.multiple}">
-            <div id="files-area">
-                <span id="filesList">
-                    <span id="files-names"></span>
-                </span>
+            <div class="multiupload-files">
+                <f:if condition="{resources}">
+                    <f:for as="resource" each="{resources}" iteration="iterator">
+                        <span data-target="#{element.uniqueIdentifier}-file-reference-{iterator.index}" class="multiupload-file-block" id="{element.uniqueIdentifier}-preview-{iterator.index}">
+                            <span class="multiupload-file-delete"><span>+</span></span>
+                            <span class="name">{resource.originalResource.originalFile.name}</span>
+                        </span>
+                    </f:for>
+                </f:if>
             </div>
+        </fe:form.uploadedResource>
+
+
+        <f:if condition="{element.properties.multiple}">
             <f:asset.script identifier="form_extended-fileupload" src="EXT:form_extended/Resources/Public/JavaScript/Frontend/FileUpload.js" />
             <f:asset.css identifier="form_extended-fileupldad" href="EXT:form_extended/Resources/Public/CSS/FileUpload.css" />
         </f:if>
