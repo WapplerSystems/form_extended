@@ -124,16 +124,17 @@ class UploadedResourceViewHelper extends UploadViewHelper
         }
         $return = [];
         $resources = $this->getValueAttribute();
-        foreach ($resources as $resource) {
-            if ($resource === null) continue;
-            if ($resource instanceof FileReference) {
-                $return[] = $resource;
-                continue;
+        if (is_array($resources)) {
+            foreach ($resources as $resource) {
+                if ($resource === null) continue;
+                if ($resource instanceof FileReference) {
+                    $return[] = $resource;
+                    continue;
+                }
+                $ex = $this->propertyMapper->convert($resource, FileReference::class);
+                $return = array_merge($return,$ex);
             }
-            $ex = $this->propertyMapper->convert($resource, FileReference::class);
-            $return = array_merge($return,$ex);
         }
-
         return $return;
     }
 
