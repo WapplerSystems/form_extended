@@ -26,7 +26,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
      */
     public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
     {
-        if (is_array($source)) {
+        if (is_array($source) && !isset($source['tmp_name'])) {
             $resources = [];
             foreach ($source as $singleSource) {
                 if (isset($singleSource['tmp_name']) && $singleSource['tmp_name'] === '') {
@@ -35,7 +35,6 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
                 if (isset($singleSource['resourcePointer'])) {
                     $resources = array_merge($resources, $this->convertFromPointerToResource($singleSource, $targetType, $convertedChildProperties, $configuration));
                 } else {
-
                     $resources[] = $this->convertFromSourceToResource($singleSource, $targetType, $convertedChildProperties, $configuration);
                 }
             }
