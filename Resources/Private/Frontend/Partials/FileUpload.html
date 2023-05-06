@@ -9,7 +9,7 @@
             errorClass="{element.properties.elementErrorClassAttribute}"
             additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
             accept="{element.properties.allowedMimeTypes}"
-            multiple="{f:if(condition:element.properties.multiple,then:'1')}"
+            multiple="{f:if(condition:element.properties.multiple,then:'multiple')}"
         >
             <div class="multiupload-files">
                 <f:if condition="{resources}">
