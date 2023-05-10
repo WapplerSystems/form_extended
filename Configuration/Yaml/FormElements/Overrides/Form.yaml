@@ -7,7 +7,7 @@ TYPO3:
             Form:
               renderingOptions:
                 templateRootPaths:
-                  74: 'EXT:form_extended/Resources/Private/Frontend/Templates/'
+                  22: 'EXT:form_extended/Resources/Private/Frontend/Templates/'
                 partialRootPaths:
                   74: 'EXT:form_extended/Resources/Private/Frontend/Partials/'
                 translation:
