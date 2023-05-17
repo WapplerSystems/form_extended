@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WapplerSystems\FormExtended\Domain\Finishers;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -43,7 +44,7 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
             $elementOptions = $elementsOptions[$element->getIdentifier()];
 
             if (!isset($elementOptions['table'])) {
-                throw new Exception('no table defined in AttachUploadsToObjectFinisher for element '.$element->getIdentifier());
+                throw new Exception('no table defined in AttachUploadsToObjectFinisher for element ' . $element->getIdentifier());
             }
 
             $databaseConnection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($elementOptions['table']);
@@ -55,12 +56,12 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
             }
 
             if ($uid === null) {
-                throw new Exception('uid in AttachUploadsToObjectFinisher for element '.$element->getIdentifier().' is null!');
+                throw new Exception('uid in AttachUploadsToObjectFinisher for element ' . $element->getIdentifier() . ' is null!');
             }
 
             $mapOnDatabaseColumn = $elementOptions['mapOnDatabaseColumn'] ?? null;
             if ($mapOnDatabaseColumn === null) {
-                throw new Exception('mapOnDatabaseColumn in AttachUploadsToObjectFinisher for element '.$element->getIdentifier().' is null!');
+                throw new Exception('mapOnDatabaseColumn in AttachUploadsToObjectFinisher for element ' . $element->getIdentifier() . ' is null!');
             }
 
             $contentElement = BackendUtility::getRecord(
@@ -71,6 +72,11 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
             if (count(array_filter($files, function ($entry) {
                     return !($entry instanceof FileReference);
                 })) === 0) {
+
+                $fakeAdmin = GeneralUtility::makeInstance(BackendUserAuthentication::class);
+                $fakeAdmin->start();
+                $fakeAdmin->groupData['tables_modify'] = 'sys_file_reference,'.$elementOptions['table'];
+
 
                 /** @var FileReference $file */
                 foreach ($files as $file) {
@@ -88,13 +94,20 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
                     $data[$elementOptions['table']][$contentElement['uid']] = [
                         $mapOnDatabaseColumn => $newId
                     ];
+
                     /** @var DataHandler $dataHandler */
                     $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
-                    $dataHandler->start($data, []);
+
+                    $doktype = $dataHandler->pageInfo($contentElement['pid'], 'doktype');
+                    if (!isset($GLOBALS['PAGES_TYPES'][$doktype]['allowedTables'])) {
+                        $GLOBALS['PAGES_TYPES'][$doktype]['allowedTables'] = '*';
+                    }
                     $dataHandler->bypassAccessCheckForRecords = true;
+                    $dataHandler->bypassWorkspaceRestrictions = true;
+                    $dataHandler->start($data, [], $fakeAdmin);
                     $dataHandler->process_datamap();
                     if (count($dataHandler->errorLog) > 0) {
-                        throw new Exception(implode(',',$dataHandler->errorLog));
+                        throw new Exception(implode(',', $dataHandler->errorLog));
                     }
 
                 }
