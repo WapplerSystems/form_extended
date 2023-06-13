@@ -4,7 +4,6 @@ namespace WapplerSystems\FormExtended\Domain\Model\FormElements;
 
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException;
 
 /**
