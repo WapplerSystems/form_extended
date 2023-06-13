@@ -47,7 +47,7 @@ TYPO3:
 
             dynamicRequireJsModules:
               additionalViewModelModules:
-                - 'TYPO3/CMS/FormExtended/Backend/FormEditor/ViewModel'
+                90: 'TYPO3/CMS/FormExtended/Backend/FormEditor/ViewModel'
 
 
       mixins:
