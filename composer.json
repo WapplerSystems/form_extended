@@ -1,7 +1,7 @@
 {
   "name": "wapplersystems/form_extended",
   "type": "typo3-cms-extension",
-  "description": "",
+  "description": "Multi upload field, double opt in method and other",
   "keywords": [
     "TYPO3"
   ],

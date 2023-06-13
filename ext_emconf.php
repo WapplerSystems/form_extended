@@ -1,7 +1,7 @@
 <?php
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Form Extended',
-    'description' => '',
+    'description' => 'Multi upload field, double opt in method and other',
     'category' => 'misc',
     'state' => 'stable',
     'clearCacheOnLoad' => 1,
