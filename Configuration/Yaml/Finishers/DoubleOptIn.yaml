@@ -9,7 +9,7 @@ TYPO3:
               options:
                 templateName: 'Default'
                 templateRootPaths:
-                  20: 'EXT:form_extended/Resources/Private/Templates/Email/DoubleOptIn/'
+                  20: 'EXT:form_extended/Resources/Private/Frontend/Templates/Finishers/Email/DoubleOptIn/'
               formEditor:
                 iconIdentifier: form-finisher
                 label: 'Double Opt-In'
