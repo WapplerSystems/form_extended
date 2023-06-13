@@ -1,0 +1,11 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            EmailToSender:
+              implementationClassName: WapplerSystems\FormExtended\Domain\Finishers\EmailFinisher
+              options:
+                templateRootPaths:
+                  20: 'EXT:form_extended/Resources/Private/Frontend/Templates/Finishers/Email/'

@@ -2,6 +2,8 @@ imports:
   - { resource: "./Finishers/AttachUploadsToObject.yaml" }
   - { resource: "./Finishers/CopyToSenderEmail.yaml" }
   - { resource: "./Finishers/DoubleOptIn.yaml" }
+  - { resource: "./Finishers/EmailToReceiver.yaml" }
+  - { resource: "./Finishers/EmailToSender.yaml" }
   - { resource: "./Finishers/FeUser.yaml" }
 
   - { resource: "./FormElements/CountrySelect.yaml" }
