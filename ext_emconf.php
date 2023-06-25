@@ -1,5 +1,5 @@
 <?php
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['form_extended'] = [
     'title' => 'Form Extended',
     'description' => 'Multi upload field, double opt in method and other',
     'category' => 'misc',
@@ -8,11 +8,11 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Sven Wappler',
     'author_email' => 'typo3YYYY@wappler.systems',
     'author_company' => 'WapplerSystems',
-    'version' => '11.0.7',
+    'version' => '12.0.7',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.0.0-11.5.99',
-            'form' => '11.0.0-11.5.99'
+            'typo3' => '12.0.0-12.4.99',
+            'form' => '12.0.0-12.4.99'
         ],
         'conflicts' => [],
         'suggests' => [],
