@@ -21,7 +21,7 @@ class FeUsernameAlreadyExistsValidator extends AbstractValidator
      *
      * @param mixed $value The value that should be validated
      */
-    public function isValid($value)
+    public function isValid($value): void
     {
 
         /** @var QueryBuilder $queryBuilder */

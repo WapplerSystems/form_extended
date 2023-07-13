@@ -1,46 +1,25 @@
 <?php
+
 namespace WapplerSystems\FormExtended\Controller;
 
 /*
  * DoubleOptInController
  */
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
 use WapplerSystems\FormExtended\Domain\Repository\OptInRepository;
+use WapplerSystems\FormExtended\Event\AfterOptInValidationEvent;
 
 class DoubleOptInController extends ActionController
 {
 
-    /**
-     * optInRepository
-     *
-     * @var OptInRepository
-     */
-    protected $optInRepository = NULL;
 
-    /**
-     * signalSlotDispatcher
-     *
-     * @var Dispatcher
-     */
-    protected $signalSlotDispatcher = NULL;
-
-
-    /**
-     * @param OptInRepository $optInRepository
-     */
-    public function injectOptInRepository(OptInRepository $optInRepository) {
-        $this->optInRepository = $optInRepository;
-    }
-
-
-    /**
-     * @param Dispatcher $signalSlotDispatcher
-     */
-    public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher) {
-        $this->signalSlotDispatcher = $signalSlotDispatcher;
+    public function __construct(readonly
+                                OptInRepository $optInRepository,
+                                EventDispatcherInterface $eventDispatcher)
+    {
     }
 
     /**
@@ -66,7 +45,9 @@ class DoubleOptInController extends ActionController
                 $optIn->setValidationDate(new \DateTime);
                 $this->optInRepository->update($optIn);
 
-                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$this,$optIn]);
+                $this->eventDispatcher->dispatch(
+                    new AfterOptInValidationEvent($optIn)
+                );
 
                 if (isset($this->settings['forward']) && (int)$this->settings['forward'] > 0) {
                     $url = $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setTargetPageUid($this->settings['forward'])->build();

@@ -1,18 +1,20 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 call_user_func(
     function($extKey)
     {
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'WapplerSystems.FormExtended',
+        ExtensionUtility::registerPlugin(
+            'form_extended',
             'DoubleOptIn',
             'DoubleOptIn Validation'
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript/DoubleOptIn', 'Form Extended - Double Opt-In');
+        ExtensionManagementUtility::addStaticFile('form_extended', 'Configuration/TypoScript/DoubleOptIn', 'Form Extended - Double Opt-In');
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_formextended_domain_model_optin');
+        ExtensionManagementUtility::allowTableOnStandardPages('tx_formextended_domain_model_optin');
     },
     'form_extended'
 );

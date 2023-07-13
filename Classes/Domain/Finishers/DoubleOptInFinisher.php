@@ -2,6 +2,7 @@
 
 namespace WapplerSystems\FormExtended\Domain\Finishers;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
@@ -17,6 +18,9 @@ use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
 use TYPO3\CMS\Form\Service\TranslationService;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
+use WapplerSystems\FormExtended\Domain\Repository\OptInRepository;
+use WapplerSystems\FormExtended\Event\AfterOptInCreationEvent;
+use WapplerSystems\FormExtended\Event\AfterOptInValidationEvent;
 
 class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
@@ -34,36 +38,11 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         'addHtmlPart' => true,
     ];
 
-    /**
-     * optInRepository
-     *
-     * @var \WapplerSystems\FormExtended\Domain\Repository\OptInRepository
-     */
-    protected \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository;
 
-    /**
-     * signalSlotDispatcher
-     *
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     */
-    protected \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher;
-
-
-    /**
-     * @param \WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository
-     */
-    public function injectOptInRepository(\WapplerSystems\FormExtended\Domain\Repository\OptInRepository $optInRepository)
+    public function __construct(readonly
+                                OptInRepository $optInRepository,
+                                EventDispatcherInterface $eventDispatcher)
     {
-        $this->optInRepository = $optInRepository;
-    }
-
-
-    /**
-     * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
-     */
-    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher)
-    {
-        $this->signalSlotDispatcher = $signalSlotDispatcher;
     }
 
 
@@ -116,7 +95,9 @@ class DoubleOptInFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         $this->optInRepository->add($optIn);
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInCreation', [$optIn]);
+        $this->eventDispatcher->dispatch(
+            new AfterOptInCreationEvent($optIn)
+        );
 
         $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $persistenceManager->persistAll();

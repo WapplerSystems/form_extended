@@ -6,10 +6,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use WapplerSystems\FormExtended\Controller\DoubleOptInController;
 
-defined('TYPO3_MODE') or die();
 
 ExtensionUtility::configurePlugin(
-    'WapplerSystems.FormExtended',
+    'form_extended',
     'DoubleOptIn',
     [
         DoubleOptInController::class => 'validation'
