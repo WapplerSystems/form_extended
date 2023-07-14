@@ -11,3 +11,12 @@ plugin.tx_formextended_doubleoptin {
 
     }
 }
+
+
+plugin.tx_form {
+    settings {
+        yamlConfigurations {
+            321 = EXT:form_extended/Configuration/Yaml/FormSetup.yaml
+        }
+    }
+}

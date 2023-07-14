@@ -13,7 +13,10 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'email, given_name, family_name, company, customer_number, validation_hash',
-        'iconfile' => 'EXT:form_extended/Resources/Public/Icons/DoubleOptIn.png'
+        'iconfile' => 'EXT:form_extended/Resources/Public/Icons/DoubleOptIn.png',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'interface' => [
     ],
