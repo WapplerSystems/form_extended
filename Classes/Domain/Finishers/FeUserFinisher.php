@@ -61,7 +61,7 @@ class FeUserFinisher extends \TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFini
             $value = $this->parseOption('databaseColumnMappings.' . $databaseColumnName . '.value');
             if (
                 empty($value)
-                && $databaseColumnConfiguration['skipIfValueIsEmpty'] === true
+                && ($databaseColumnConfiguration['skipIfValueIsEmpty'] ?? false) === true
             ) {
                 continue;
             }
