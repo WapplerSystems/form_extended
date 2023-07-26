@@ -19,8 +19,7 @@ namespace WapplerSystems\FormExtended\Domain\Finishers;
 
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
-use TYPO3\CMS\Core\Mail\Mailer;
-use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
@@ -86,7 +85,6 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
         $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients');
         $addHtmlPart = $this->parseOption('addHtmlPart') ? true : false;
         $attachUploads = $this->parseOption('attachUploads');
-        $useFluidEmail = $this->parseOption('useFluidEmail');
         $title = (string)$this->parseOption('title') ?: $subject;
 
         if ($subject === '') {
@@ -107,17 +105,13 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
             $translationService->setLanguage($this->options['translation']['language']);
         }
 
-        $mail = $useFluidEmail
-            ? $this
-                ->initializeFluidEmail($formRuntime)
-                ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
-                ->assign('title', $title)
-            : GeneralUtility::makeInstance(MailMessage::class);
-
-        $mail
+        $mail = $this
+            ->initializeFluidEmail($formRuntime)
             ->from(new Address($senderAddress, $senderName))
             ->to(...$recipients)
-            ->subject($subject);
+            ->subject($subject)
+            ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
+            ->assign('title', $title);
 
         if (!empty($replyToRecipients)) {
             $mail->replyTo(...$replyToRecipients);
@@ -129,33 +123,6 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         if (!empty($blindCarbonCopyRecipients)) {
             $mail->bcc(...$blindCarbonCopyRecipients);
-        }
-
-        if (!$useFluidEmail) {
-            $parts = [
-                [
-                    'format' => 'Plaintext',
-                    'contentType' => 'text/plain',
-                ],
-            ];
-
-            if ($addHtmlPart) {
-                $parts[] = [
-                    'format' => 'Html',
-                    'contentType' => 'text/html',
-                ];
-            }
-
-            foreach ($parts as $i => $part) {
-                $standaloneView = $this->initializeStandaloneView($formRuntime, $part['format']);
-                $message = $standaloneView->render();
-
-                if ($part['contentType'] === 'text/plain') {
-                    $mail->text($message);
-                } else {
-                    $mail->html($message);
-                }
-            }
         }
 
         if (!empty($languageBackup)) {
@@ -186,6 +153,6 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
             }
         }
 
-        $useFluidEmail ? GeneralUtility::makeInstance(Mailer::class)->send($mail) : $mail->send();
+        GeneralUtility::makeInstance(MailerInterface::class)->send($mail);
     }
 }
