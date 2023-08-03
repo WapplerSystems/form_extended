@@ -29,7 +29,7 @@ class FeUsernameAlreadyExistsValidator extends AbstractValidator
         $queryBuilder->getRestrictions()->removeAll();
         $count = $queryBuilder->count('uid')->from('fe_users')->where(
             $queryBuilder->expr()->eq('username', $queryBuilder->createNamedParameter($value))
-        )->execute()->fetchColumn(0);
+        )->execute()->fetchFirstColumn();
 
         if ($count > 0) {
             $this->addError(
