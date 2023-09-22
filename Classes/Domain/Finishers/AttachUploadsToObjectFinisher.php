@@ -7,6 +7,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
@@ -75,7 +76,17 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
 
                 $fakeAdmin = GeneralUtility::makeInstance(BackendUserAuthentication::class);
                 $fakeAdmin->start();
+                $fakeAdmin->user['uid'] = 0; // fake uid to avoid php warning in DataHandler
                 $fakeAdmin->groupData['tables_modify'] = 'sys_file_reference,'.$elementOptions['table'];
+
+                // flux workaround
+                if (!is_object($GLOBALS['BE_USER'])) {
+                    $GLOBALS['BE_USER'] = $fakeAdmin;
+                    $GLOBALS['BE_USER']->workspace = 0;
+                }
+
+                $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create('default');
+
 
 
                 /** @var FileReference $file */
