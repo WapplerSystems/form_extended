@@ -4,7 +4,7 @@ TYPO3:
       prototypes:
         standard:
           formElementsDefinition:
-            FileUpload:
+            ImageUpload:
               formEditor:
                 editors:
                   310:

@@ -3,12 +3,20 @@
 namespace WapplerSystems\FormExtended\Mvc\Property\TypeConverter;
 
 
+use TYPO3\CMS\Core\Crypto\Random;
+use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\AbstractFileFolder;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Form\Mvc\Property\Exception\TypeConverterException;
+use TYPO3\CMS\Form\Mvc\Property\TypeConverter\PseudoFile;
+use TYPO3\CMS\Form\Mvc\Property\TypeConverter\PseudoFileReference;
+use TYPO3\CMS\Form\Mvc\Validation\FileSizeValidator;
+use TYPO3\CMS\Form\Mvc\Validation\MimeTypeValidator;
 use TYPO3\CMS\Form\Slot\ResourcePublicationSlot;
+use WapplerSystems\FormExtended\Mvc\Validation\FileCollectionSizeValidator;
+use WapplerSystems\FormExtended\Mvc\Validation\FileCountValidator;
 
 class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter {
 
@@ -28,6 +36,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
     {
         if (is_array($source) && !isset($source['tmp_name'])) {
             $resources = [];
+
             foreach ($source as $singleSource) {
                 if (isset($singleSource['tmp_name']) && $singleSource['tmp_name'] === '') {
                     continue;
@@ -38,12 +47,30 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
                     $resources[] = $this->convertFromSourceToResource($singleSource, $targetType, $convertedChildProperties, $configuration);
                 }
             }
+
+            // validate
+            if ($configuration !== null) {
+                $validators = $configuration->getConfigurationValue(\TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class,\TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::CONFIGURATION_FILE_VALIDATORS);
+
+                foreach ($validators as $validator) {
+                    if ($validator instanceof FileCollectionSizeValidator || $validator instanceof FileCountValidator) {
+                        $validationResult = $validator->validate($resources);
+                        if ($validationResult->hasErrors()) {
+                            return $validationResult->getErrors()[0];
+                        }
+                    }
+                }
+
+            }
+
             return $resources;
         }
+        // single file
         return $this->convertFromSourceToResource($source, $targetType, $convertedChildProperties, $configuration);
+
     }
 
-    protected function convertFromPointerToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
+    protected function convertFromPointerToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null): array {
         // slot/listener using `FileDumpController` instead of direct public URL in (later) rendering process
         $resourcePublicationSlot = GeneralUtility::makeInstance(ResourcePublicationSlot::class);
 
@@ -77,7 +104,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
         return [];
     }
 
-    protected function convertFromSourceToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
+    protected function convertFromSourceToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null): Error|PseudoFileReference|null {
         // slot/listener using `FileDumpController` instead of direct public URL in (later) rendering process
         $resourcePublicationSlot = GeneralUtility::makeInstance(ResourcePublicationSlot::class);
 
@@ -106,6 +133,55 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
         $this->convertedResources[$source['tmp_name']] = $resource;
         return $resource;
 
+    }
+
+
+    /**
+     * Import a resource and respect configuration given for properties
+     *
+     * @param array $uploadInfo
+     * @param PropertyMappingConfigurationInterface $configuration
+     * @return PseudoFileReference
+     */
+    protected function importUploadedResource(
+        array $uploadInfo,
+        PropertyMappingConfigurationInterface $configuration
+    ): PseudoFileReference {
+        if (!GeneralUtility::makeInstance(FileNameValidator::class)->isValid($uploadInfo['name'])) {
+            throw new TypeConverterException('Uploading files with PHP file extensions is not allowed!', 1471710357);
+        }
+        // `CONFIGURATION_UPLOAD_SEED` is expected to be defined
+        // if it's not given any random seed is generated, instead of throwing an exception
+        $seed = $configuration->getConfigurationValue(self::class, self::CONFIGURATION_UPLOAD_SEED)
+            ?: GeneralUtility::makeInstance(Random::class)->generateRandomHexString(40);
+        $uploadFolderId = $configuration->getConfigurationValue(self::class, self::CONFIGURATION_UPLOAD_FOLDER) ?: $this->defaultUploadFolder;
+        $conflictMode = $configuration->getConfigurationValue(self::class, self::CONFIGURATION_UPLOAD_CONFLICT_MODE) ?: $this->defaultConflictMode;
+        $pseudoFile = GeneralUtility::makeInstance(PseudoFile::class, $uploadInfo);
+
+        $validators = $configuration->getConfigurationValue(self::class, self::CONFIGURATION_FILE_VALIDATORS);
+        if (is_array($validators)) {
+            foreach ($validators as $validator) {
+                if ($validator instanceof FileSizeValidator || $validator instanceof MimeTypeValidator) {
+                    $validationResult = $validator->validate($pseudoFile);
+                    if ($validationResult->hasErrors()) {
+                        throw TypeConverterException::fromError($validationResult->getErrors()[0]);
+                    }
+                }
+            }
+        }
+
+        $uploadFolder = $this->provideUploadFolder($uploadFolderId);
+        // current folder name, derived from public random seed (`formSession`)
+        $currentName = 'form_' . GeneralUtility::hmac($seed, self::class);
+        $uploadFolder = $this->provideTargetFolder($uploadFolder, $currentName);
+        // sub-folder in $uploadFolder with 160 bit of derived entropy (.../form_<40-chars-hash>/actual.file)
+        $uploadedFile = $uploadFolder->addUploadedFile($uploadInfo, $conflictMode);
+
+        $resourcePointer = isset($uploadInfo['submittedFile']['resourcePointer']) && !str_contains($uploadInfo['submittedFile']['resourcePointer'], 'file:')
+            ? (int)$this->hashService->validateAndStripHmac($uploadInfo['submittedFile']['resourcePointer'])
+            : null;
+
+        return $this->createFileReferenceFromFalFileObject($uploadedFile, $resourcePointer);
     }
 
 

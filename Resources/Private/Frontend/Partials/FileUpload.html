@@ -21,6 +21,16 @@
                     </f:for>
                 </f:if>
             </div>
+
+            <div class="">
+                <f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:maxFileSize" arguments="{0: '{element.properties.fluidAdditionalAttributes.data-max-filesize -> f:format.bytes()}'}" />
+                <f:if condition="{element.properties.fluidAdditionalAttributes.data-max-filesize-per-file} > 0">
+                    <f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:maxFileSizePerFile" arguments="{0: '{element.properties.fluidAdditionalAttributes.data-max-filesize-per-file -> f:format.bytes()}'}" />
+                </f:if>
+                <f:if condition="{element.properties.fluidAdditionalAttributes.data-max-files} > 0">
+                    <f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:maxFiles" arguments="{0: element.properties.fluidAdditionalAttributes.data-max-files}" />
+                </f:if>
+            </div>
         </fe:form.uploadedResource>
 
 

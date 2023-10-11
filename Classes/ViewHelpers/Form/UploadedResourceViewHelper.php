@@ -86,7 +86,6 @@ class UploadedResourceViewHelper extends UploadViewHelper
         if (!empty($accept)) {
             $this->tag->addAttribute('accept', implode(',', $accept));
         }
-
         $output .= parent::render();
 
         if ($resources !== null) {
@@ -106,6 +105,8 @@ class UploadedResourceViewHelper extends UploadViewHelper
             $this->templateVariableContainer->add($as, $resources);
             $output .= $this->renderChildren();
             $this->templateVariableContainer->remove($as);
+        } else {
+            $output .= $this->renderChildren();
         }
 
         return $output;
