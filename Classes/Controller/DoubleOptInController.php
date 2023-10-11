@@ -5,6 +5,7 @@ namespace WapplerSystems\FormExtended\Controller;
  * DoubleOptInController
  */
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use WapplerSystems\FormExtended\Domain\Model\OptIn;
@@ -49,7 +50,7 @@ class DoubleOptInController extends ActionController
      * @param string $hash
      * @return void
      */
-    public function validationAction($hash = '')
+    public function validationAction($hash = ''): ResponseInterface
     {
         if ($hash !== '') {
             /** @var OptIn $optIn */
@@ -79,5 +80,6 @@ class DoubleOptInController extends ActionController
         }
 
         $this->view->assign('notFound', true);
+        return $this->htmlResponse();
     }
 }
