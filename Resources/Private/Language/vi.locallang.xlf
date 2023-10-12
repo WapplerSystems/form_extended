@@ -23,12 +23,32 @@
         <target state="needs-translation">Your registration - please confirm your email address</target>
       </trans-unit>
       <trans-unit id="validator.feUsernameAlreadyExists.true">
-        <source>The user name is already in use.</source>
-        <target state="needs-translation">The user name is already in use.</target>
+        <source>The username is already in use.</source>
+        <target state="needs-translation">The username is already in use.</target>
       </trans-unit>
       <trans-unit id="element.privacyPolicyCheckbox.properties.description">
         <source><![CDATA[I have read and accepted the <a href="%s">privacy policy</a>.]]></source>
         <target state="needs-translation"><![CDATA[I have read and accepted the <a href="%s">privacy policy</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="maxFileSize">
+        <source>Maximum file size: %s</source>
+        <target state="needs-translation">Maximum file size: %s</target>
+      </trans-unit>
+      <trans-unit id="maxFileSizePerFile">
+        <source>, maximum file size per file: %s</source>
+        <target state="needs-translation">, maximum file size per file: %s</target>
+      </trans-unit>
+      <trans-unit id="maxFiles">
+        <source>, maximum number of files: %s</source>
+        <target state="needs-translation">, maximum number of files: %s</target>
+      </trans-unit>
+      <trans-unit id="validation.error.1697065882">
+        <source>Value is not an array</source>
+        <target state="needs-translation">Value is not an array</target>
+      </trans-unit>
+      <trans-unit id="validation.error.1697065997">
+        <source>The number of files must be between %s and %s</source>
+        <target state="needs-translation">The number of files must be between %s and %s</target>
       </trans-unit>
     </body>
   </file>
