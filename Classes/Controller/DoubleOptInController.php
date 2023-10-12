@@ -60,7 +60,7 @@ class DoubleOptInController extends ActionController
 
                 if ($optIn->getIsValidated()) {
                     $this->view->assign('alreadyConfirmed', true);
-                    return;
+                    return $this->htmlResponse();
                 }
 
                 $optIn->setIsValidated(TRUE);
@@ -75,7 +75,7 @@ class DoubleOptInController extends ActionController
                 }
 
                 $this->view->assign('success', true);
-                return;
+                return $this->htmlResponse();
             }
         }
 
