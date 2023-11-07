@@ -5,31 +5,31 @@
     <body>
       <trans-unit id="flexform.main">
         <source>Main settings</source>
-        <target state="needs-translation">Main settings</target>
+        <target state="translated">Wichtigste Einstellungen</target>
       </trans-unit>
       <trans-unit id="flexform.forward">
         <source>Forward to page</source>
-        <target state="needs-translation">Forward to page</target>
+        <target state="translated">Auf Seite weiterleiten</target>
       </trans-unit>
       <trans-unit id="tx_formextended_domain_model_optin.email">
         <source>Email</source>
-        <target state="needs-translation">Email</target>
+        <target state="translated">E-Mail</target>
       </trans-unit>
       <trans-unit id="tx_formextended_domain_model_optin.encoded_values">
         <source>Values</source>
-        <target state="needs-translation">Values</target>
+        <target state="translated">Werte</target>
       </trans-unit>
       <trans-unit id="tx_formextended_domain_model_optin.is_validated">
         <source>Is validated</source>
-        <target state="needs-translation">Is validated</target>
+        <target state="translated">Ist bestätigt</target>
       </trans-unit>
       <trans-unit id="tx_formextended_domain_model_optin.validation_hash">
         <source>Validation hash</source>
-        <target state="needs-translation">Validation hash</target>
+        <target state="translated">Validierungs-Hash</target>
       </trans-unit>
       <trans-unit id="tx_formextended_domain_model_optin.validation_date">
         <source>Validation date</source>
-        <target state="needs-translation">Validation date</target>
+        <target state="translated">Validierungsdatum</target>
       </trans-unit>
       <trans-unit id="tx_formextended_domain_model_optin">
         <source>Opt in requests</source>
