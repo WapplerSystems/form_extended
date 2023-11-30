@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="sv-SE">
+    <header/>
+    <body>
+      <trans-unit id="flexform.main" xml:space="preserve">
+                <source>Main settings</source>
+            <target state="needs-translation">Main settings</target></trans-unit>
+      <trans-unit id="flexform.forward" xml:space="preserve">
+                <source>Forward to page</source>
+            <target state="needs-translation">Forward to page</target></trans-unit>
+    </body>
+  </file>
+</xliff>

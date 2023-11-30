@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="de">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended" target-language="da">
     <header/>
     <body>
-      <trans-unit id="doubleoptin.email.text" xml:space="preserve">
+      <trans-unit id="doubleoptin.email.text" xml:space="preserve" approved="yes">
                 <source><![CDATA[Thank you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:]]></source>
-            <target state="needs-translation"><![CDATA[Thank you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:]]></target></trans-unit>
-      <trans-unit id="text.success">
+            <target state="final"><![CDATA[Tak for din tilmelding. For at bekræfte din e-mailadresse, skal du klikke på følgende link eller kopiere det til din browsers adresselinjen:]]></target></trans-unit>
+      <trans-unit id="text.success" approved="yes">
         <source>Thank you, your validation was successful. You can now login.</source>
-        <target state="needs-translation">Thank you, your validation was successful. You can now login.</target>
+        <target state="final">Tak, din validering var vellykket. Du kan nu logge ind.</target>
       </trans-unit>
-      <trans-unit id="text.notFound">
+      <trans-unit id="text.notFound" approved="yes">
         <source>Unfortunately no matching entry was found for the key.</source>
-        <target state="needs-translation">Unfortunately no matching entry was found for the key.</target>
+        <target state="final">Desværre blev der ikke fundet en matchende post for nøglen.</target>
       </trans-unit>
-      <trans-unit id="text.alreadyConfirmed">
+      <trans-unit id="text.alreadyConfirmed" approved="yes">
         <source>The email address has already been activated.</source>
-        <target state="needs-translation">The email address has already been activated.</target>
+        <target state="final">Denne e-mail er allerede aktiveret.</target>
       </trans-unit>
       <trans-unit id="element.privacyPolicyCheckbox.properties.description">
         <source><![CDATA[I have read and accepted the <a href="%s">privacy policy</a>.]]></source>
