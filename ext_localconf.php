@@ -31,3 +31,6 @@ $iconRegistry->registerIcon(
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class] = [
     'className' => WapplerSystems\FormExtended\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class
 ];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Form\Mvc\Property\PropertyMappingConfiguration::class] = [
+    'className' => WapplerSystems\FormExtended\Mvc\Property\PropertyMappingConfiguration::class
+];
