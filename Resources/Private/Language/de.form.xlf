@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended">
-        <header/>
-        <body>
-            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.info.label" xml:space="preserve">
-                <target>Info</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label" xml:space="preserve">
-                <target>Blende den Titel aus</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideOnSummaryPage.label" xml:space="preserve">
-                <target>Auf der Zusammenfassungsseite ausblenden</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideInReceiverEmail.label" xml:space="preserve">
-                <target>In der Empfänger-Email ausblenden</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideInSenderEmail.label" xml:space="preserve">
-                <target>In der Sender-Email ausblenden</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.privacyPolicyCheckbox.label">
-                <source>Privacy policy checkbox</source>
-                <target>Datenschutzerklärungs-Checkbox</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.countrySelect.label">
-                <source>Country select box</source>
-                <target>Länderauswahl</target>
-            </trans-unit>
-            <trans-unit id="formEditor.elements.FileUpload.editor.enableMultiple.label">
-                <source>Enable multiple file upload</source>
-                <target>Aktiviere mehrfachen Datei-Upload</target>
-            </trans-unit>
-
-
-        </body>
-    </file>
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z"
+		  product-name="form_extended">
+		<header/>
+		<body>
+			<trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.info.label">
+				<target>Info</target>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label">
+				<target>Blende den Titel aus</target>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.privacyPolicyCheckbox.label">
+				<source>Privacy policy checkbox</source>
+				<target>Datenschutzerklärungs-Checkbox</target>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.countrySelect.label">
+				<source>Country select box</source>
+				<target>Länderauswahl</target>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.FileUpload.editor.enableMultiple.label">
+				<source>Enable multiple file upload</source>
+				<target>Aktiviere mehrfachen Datei-Upload</target>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.senderAddress.fieldExplanationText2">
+				<source>Set automatically by the site configuration</source>
+				<target>Wird automatisch durch die Site-Konfiguration gesetzt</target>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>

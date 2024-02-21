@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z" product-name="form_extended">
-        <header/>
-        <body>
-            <trans-unit id="flexform.main">
-                <source>Main settings</source>
-            </trans-unit>
-            <trans-unit id="flexform.forward">
-                <source>Forward to page</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.email">
-                <source>Email</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.encoded_values">
-                <source>Values</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.is_validated">
-                <source>Is validated</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.validation_hash">
-                <source>Validation hash</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.validation_date">
-                <source>Validation date</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin">
-                <source>Opt in requests</source>
-            </trans-unit>
-
-        </body>
-    </file>
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-08-21T20:15:32Z"
+		  product-name="form_extended">
+		<header/>
+		<body>
+			<trans-unit id="flexform.main">
+				<source>Main settings</source>
+			</trans-unit>
+			<trans-unit id="flexform.forward">
+				<source>Forward to page</source>
+			</trans-unit>
+			<trans-unit id="tx_formextended_domain_model_optin.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_formextended_domain_model_optin.encoded_values">
+				<source>Values</source>
+			</trans-unit>
+			<trans-unit id="tx_formextended_domain_model_optin.is_validated">
+				<source>Is validated</source>
+			</trans-unit>
+			<trans-unit id="tx_formextended_domain_model_optin.validation_hash">
+				<source>Validation hash</source>
+			</trans-unit>
+			<trans-unit id="tx_formextended_domain_model_optin.validation_date">
+				<source>Validation date</source>
+			</trans-unit>
+			<trans-unit id="tx_formextended_domain_model_optin">
+				<source>Opt in requests</source>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
