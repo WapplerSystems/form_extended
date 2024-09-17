@@ -1,5 +1,5 @@
 #
-# Table structure for table 'tx_formdoubleoptin_domain_model_optin'
+# Table structure for table 'tx_formextended_domain_model_optin'
 #
 CREATE TABLE tx_formextended_domain_model_optin
 (
