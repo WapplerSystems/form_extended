@@ -26,7 +26,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * Fetch "row" data from yml file and set as 'databaseRow'
  */
-class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvider\SiteDatabaseEditRow
+readonly class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvider\SiteDatabaseEditRow
 {
 
 
