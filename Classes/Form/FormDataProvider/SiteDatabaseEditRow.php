@@ -42,16 +42,15 @@ readonly class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvi
         }
 
         $tableName = $result['tableName'];
-        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class, $this->siteConfiguration);
         if ($tableName === 'site') {
             $rootPageId = (int)$result['vanillaUid'];
-            $rowData = $this->getRawConfigurationForSiteWithRootPageId($siteFinder, $rootPageId);
+            $rowData = $this->getRawConfigurationForSiteWithRootPageId($rootPageId);
             $result['databaseRow']['uid'] = $rowData['rootPageId'];
             $result['databaseRow']['identifier'] = $result['customData']['siteIdentifier'];
         } elseif (in_array($tableName, ['site_errorhandling', 'site_language', 'site_route', 'site_base_variant', 'site_sender'], true)) {
             $rootPageId = (int)($result['inlineTopMostParentUid'] ?? $result['inlineParentUid']);
             try {
-                $rowData = $this->getRawConfigurationForSiteWithRootPageId($siteFinder, $rootPageId);
+                $rowData = $this->getRawConfigurationForSiteWithRootPageId($rootPageId);
                 $parentFieldName = $result['inlineParentFieldName'];
                 if (!isset($rowData[$parentFieldName])) {
                     throw new \RuntimeException('Field "' . $parentFieldName . '" not found', 1520886092);
