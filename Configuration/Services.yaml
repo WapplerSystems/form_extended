@@ -13,6 +13,3 @@ services:
       - name: event.listener
         identifier: 'form-extended/modify-data-structure'
         method: 'modifyDataStructure'
-
-  WapplerSystems\FormExtended\Service\Mailer:
-    public: true
