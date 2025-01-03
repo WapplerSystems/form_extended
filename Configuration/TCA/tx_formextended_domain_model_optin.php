@@ -22,7 +22,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'email, encoded_values, validation_hash, validation_date, is_validated'
+            'showitem' => 'email, encoded_values, validation_hash, validation_date, is_validated, last_sent'
         ]
     ],
     'columns' => [
@@ -63,6 +63,17 @@ return [
         'validation_date' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_extended/Resources/Private/Language/locallang_db.xlf:tx_formextended_domain_model_optin.validation_date',
+            'config' => [
+                'type' => 'input',
+                'size' => 20,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'readOnly' => 1
+            ]
+        ],
+        'last_sent' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:form_extended/Resources/Private/Language/locallang_db.xlf:tx_formextended_domain_model_optin.last_sent',
             'config' => [
                 'type' => 'input',
                 'size' => 20,

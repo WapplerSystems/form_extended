@@ -37,13 +37,6 @@ prototypes:
                     identifier: header
                     templateName: Inspector-CollectionElementHeaderEditor
                     label: 'Double Opt-In'
-                  160:
-                    identifier: 'validationPid'
-                    templateName: 'Inspector-TextEditor'
-                    label: 'Validation Page ID'
-                    propertyPath: 'options.validationPid'
-                    propertyValidators:
-                      10: 'Integer'
                   200:
                     identifier: subject
                     templateName: Inspector-TextEditor

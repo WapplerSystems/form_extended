@@ -1,8 +1,7 @@
-
 plugin.tx_form {
-    settings {
-        yamlConfigurations {
-            321 = EXT:form_extended/Configuration/Yaml/FormSetup.yaml
-        }
+  settings {
+    yamlConfigurations {
+      321 = EXT:form_extended/Configuration/Yaml/FormSetup.yaml
     }
+  }
 }

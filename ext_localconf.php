@@ -5,20 +5,7 @@ use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-use WapplerSystems\FormExtended\Controller\DoubleOptInController;
 
-
-ExtensionUtility::configurePlugin(
-    'form_extended',
-    'DoubleOptIn',
-    [
-        DoubleOptInController::class => 'validation'
-    ],
-    [
-        DoubleOptInController::class => 'validation'
-    ]
-);
 
 $iconRegistry = GeneralUtility::makeInstance(
     IconRegistry::class
