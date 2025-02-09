@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace WapplerSystems\FormExtended\Domain\Finishers;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Mail\FluidEmail;
@@ -29,6 +30,7 @@ use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
 use TYPO3\CMS\Form\Service\TranslationService;
+use WapplerSystems\FormExtended\Event\MailBeforeSendingEvent;
 
 /**
  * This finisher sends an email to one recipient
@@ -182,7 +184,14 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
             }
         }
 
-        GeneralUtility::makeInstance(MailerInterface::class)->send($mail);
+        $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+
+        /** @var MailBeforeSendingEvent $event */
+        $event = $eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(MailBeforeSendingEvent::class, $mail, $this->finisherContext, $this)
+        );
+
+        GeneralUtility::makeInstance(MailerInterface::class)->send($event->getMail());
     }
 
 
