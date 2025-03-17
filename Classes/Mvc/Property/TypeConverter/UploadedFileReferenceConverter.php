@@ -3,11 +3,14 @@
 namespace WapplerSystems\FormExtended\Mvc\Property\TypeConverter;
 
 
+use Psr\Log\LoggerAwareInterface;
+use TYPO3\CMS\Core\Http\UploadedFile;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\AbstractFileFolder;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Form\Mvc\Property\Exception\TypeConverterException;
+use TYPO3\CMS\Form\Mvc\Property\TypeConverter\PseudoFileReference;
 use TYPO3\CMS\Form\Slot\ResourcePublicationSlot;
 
 class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter {
@@ -20,8 +23,8 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
      * @param array $source
      * @param string $targetType
      * @param array $convertedChildProperties
-     * @param PropertyMappingConfigurationInterface $configuration
-     * @return AbstractFileFolder|AbstractFileFolder[]|Error|null
+     * @param PropertyMappingConfigurationInterface|null $configuration
+     * @return mixed|object|LoggerAwareInterface|SingletonInterface|Error|PseudoFileReference|null
      * @internal
      */
     public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
@@ -31,7 +34,9 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
         }
         if (is_array($source) && !isset($source['tmp_name'])) {
             $resources = [];
+            /** @var UploadedFile $singleSource */
             foreach ($source as $singleSource) {
+
                 if (isset($singleSource['tmp_name']) && $singleSource['tmp_name'] === '') {
                     continue;
                 }

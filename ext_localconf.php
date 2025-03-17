@@ -15,10 +15,6 @@ $iconRegistry->registerIcon(
     SvgIconProvider::class,
     ['source' => 'EXT:form_extended/Resources/Public/Icons/PluginDoubleOptIn.svg']
 );
-
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class] = [
-    'className' => WapplerSystems\FormExtended\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class
-];
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Backend\Form\FormDataProvider\SiteTcaInline::class] = [
     'className' => WapplerSystems\FormExtended\Form\FormDataProvider\SiteTcaInline::class
 ];
