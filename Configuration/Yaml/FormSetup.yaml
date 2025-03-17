@@ -44,7 +44,7 @@ prototypes:
         layoutRootPaths:
           780: 'EXT:form_extended/Resources/Private/Backend/Layouts/FormEditor/'
 
-      dynamicRequireJsModules:
+      dynamicJavaScriptModules:
         additionalViewModelModules:
           90: '@wapplersystems/form_extended/backend/form-editor/view-model.js'
 
