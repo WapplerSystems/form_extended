@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
+<formvh:renderRenderable renderable="{element}">
+    <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+        <f:form.textarea
+            property="{element.identifier}"
+            id="{element.uniqueIdentifier}"
+            class="{element.properties.elementClassAttribute} form-control"
+            rows="{element.properties.rows}"
+            cols="{element.properties.cols}"
+            errorClass="{element.properties.elementErrorClassAttribute}"
+            additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+        />
+    </f:render>
+</formvh:renderRenderable>
+
+<f:if condition="{element.properties.enableRichtext}">
+
+    <f:asset.script identifier="ckeditor-form-extended" src="EXT:form_extended/Resources/Public/JavaScript/Frontend/ckeditor.js" />
+
+    <f:asset.script identifier="init-ckeditor-{element.uniqueIdentifier}">
+        ClassicEditor
+        .create(document.querySelector('#{element.uniqueIdentifier}'))
+        .catch(error => {
+        console.error('Error when initializing the editor:', error);
+        });
+
+    </f:asset.script>
+
+</f:if>
+
+
+</html>

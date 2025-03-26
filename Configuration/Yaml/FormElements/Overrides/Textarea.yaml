@@ -4,3 +4,22 @@ prototypes:
       Textarea:
         __inheritances:
           70: TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin
+
+        formEditor:
+          editors:
+
+            550:
+              identifier: rows
+              templateName: Inspector-TextEditor
+              label: formEditor.elements.TextMixin.editor.rows.label
+              propertyPath: properties.rows
+            560:
+              identifier: cols
+              templateName: Inspector-TextEditor
+              label: formEditor.elements.TextMixin.editor.cols.label
+              propertyPath: properties.cols
+            570:
+              identifier: enableRichtext
+              templateName: Inspector-CheckboxEditor
+              label: formEditor.elements.TextMixin.editor.enableRichtext.label
+              propertyPath: properties.enableRichtext
