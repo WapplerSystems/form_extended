@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" xmlns:wsfe="http://typo3.org/ns/WapplerSystems/FormExtended/ViewHelpers" data-namespace-typo3-fluid="true">
 <formvh:renderRenderable renderable="{element}">
     <f:render partial="Field/Field" arguments="{element: element, doNotShowLabel: 1}" contentAs="elementContent">
         <f:form.checkbox
@@ -10,7 +10,7 @@
                 additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
         />
         <label class="{element.properties.labelClassAttribute}" for="{element.uniqueIdentifier}">
-            <span><f:format.raw><f:translate key="LLL:EXT:form_extended/Resources/Private/Language/locallang.xlf:element.privacyPolicyCheckbox.properties.description" arguments="{0: '{f:uri.page(pageUid:element.properties.privacyPolicyUid)}'}"/></f:format.raw> <f:if condition="{element.required}"><f:render partial="Field/Required"/></f:if></span>
+            <span><f:format.raw><wsfe:translateElementProperty element="{element}" property="description" arguments="{0: '{f:uri.page(pageUid:element.properties.privacyPolicyUid)}'}" /></f:format.raw> <f:if condition="{element.required}"><f:render partial="Field/Required"/></f:if></span>
         </label>
 
     </f:render>
