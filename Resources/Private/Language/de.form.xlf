@@ -10,6 +10,15 @@
             <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label">
                 <target>Blende den Titel aus</target>
             </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.mapOnDatabaseColumn.label">
+                <target>Datenbank-Feldname</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.emptyValueBehaviour.label">
+                <target>Verhalten bei leerem Wert</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.saveFileIdentifierInsteadOfUid.label">
+                <target>Dateikennung anstelle von uid speichern</target>
+            </trans-unit>
             <trans-unit id="formEditor.elements.privacyPolicyCheckbox.label">
                 <source>Privacy policy checkbox</source>
                 <target>Datenschutzerklärungs-Checkbox</target>
@@ -37,6 +46,21 @@
             <trans-unit id="element.MultiSelect.properties.remove_button.title">
                 <source>Remove</source>
                 <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.emptyValueBehaviour.option.defaultValue">
+                <source>Default value</source>
+                <target>Standardwert</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.emptyValueBehaviour.option.skip">
+                <source>Skip</source>
+                <target>Überspringen</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.function.option.none">
+                <target>Keine</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.function.label">
+                <source>Function to be executed when saving to the database</source>
+                <target>Auszuführende Funktion beim Speichern in der Datenbank</target>
             </trans-unit>
         </body>
     </file>

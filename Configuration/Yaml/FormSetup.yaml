@@ -12,6 +12,7 @@ imports:
   - { resource: "./FormElements/Overrides/AdvancedPassword.yaml" }
   - { resource: "./FormElements/Overrides/Checkbox.yaml" }
   - { resource: "./FormElements/Overrides/DatePicker.yaml" }
+  - { resource: "./FormElements/Overrides/Email.yaml" }
   - { resource: "./FormElements/Overrides/FileUpload.yaml" }
   - { resource: "./FormElements/Overrides/Form.yaml" }
   - { resource: "./FormElements/Overrides/ImageUpload.yaml" }
@@ -57,10 +58,44 @@ mixins:
           710:
             identifier: 'info'
             templateName: 'Inspector-TextareaEditor'
-            label: 'formEditor.elements.ExtendedAttributesMixin.editor.info.label'
+            label: formEditor.elements.ExtendedAttributesMixin.editor.info.label
             propertyPath: 'properties.info'
           750:
             identifier: 'hideTitle'
             templateName: 'Inspector-CheckboxEditor'
-            label: 'formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label'
+            label: formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label
             propertyPath: 'properties.hideTitle'
+          920:
+            identifier: 'mapOnDatabaseColumn'
+            templateName: 'Inspector-TextEditor'
+            label: formEditor.elements.ExtendedAttributesMixin.editor.mapOnDatabaseColumn.label
+            propertyPath: 'properties.mapOnDatabaseColumn'
+          921:
+            identifier: 'emptyValueBehaviour'
+            templateName: 'Inspector-SingleSelectEditor'
+            label: formEditor.elements.ExtendedAttributesMixin.editor.emptyValueBehaviour.label
+            propertyPath: 'properties.emptyValueBehaviour'
+            selectOptions:
+              10:
+                value: 'skip'
+                label: formEditor.elements.FormElement.editor.emptyValueBehaviour.option.skip
+              15:
+                value: 'defaultValue'
+                label: formEditor.elements.FormElement.editor.emptyValueBehaviour.option.defaultValue
+          922:
+            identifier: 'saveFileIdentifierInsteadOfUid'
+            templateName: 'Inspector-CheckboxEditor'
+            label: formEditor.elements.ExtendedAttributesMixin.editor.saveFileIdentifierInsteadOfUid.label
+            propertyPath: 'properties.saveFileIdentifierInsteadOfUid'
+          923:
+            identifier: 'function'
+            templateName: 'Inspector-SingleSelectEditor'
+            label: formEditor.elements.ExtendedAttributesMixin.editor.function.label
+            propertyPath: 'properties.function'
+            selectOptions:
+              10:
+                value: ''
+                label: formEditor.elements.FormElement.editor.function.option.none
+              20:
+                value: 'time'
+                label: formEditor.elements.FormElement.editor.function.option.time

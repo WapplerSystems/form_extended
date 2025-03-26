@@ -1,0 +1,6 @@
+prototypes:
+  standard:
+    formElementsDefinition:
+      Email:
+        __inheritances:
+          70: TYPO3.CMS.Form.mixins.formElementMixins.ExtendedAttributesMixin

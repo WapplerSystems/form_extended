@@ -10,6 +10,15 @@
             <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.hideTitle.label">
                 <source>Hide title</source>
             </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.mapOnDatabaseColumn.label">
+                <source>Database field name</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.emptyValueBehaviour.label">
+                <source>Behavior with empty value</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.saveFileIdentifierInsteadOfUid.label">
+                <source>save file identifier instead of uid</source>
+            </trans-unit>
             <trans-unit id="formEditor.elements.privacyPolicyCheckbox.label">
                 <source>Privacy policy checkbox</source>
             </trans-unit>
@@ -51,6 +60,21 @@
             </trans-unit>
             <trans-unit id="element.MultiSelect.properties.remove_button.title">
                 <source>Remove</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.emptyValueBehaviour.option.defaultValue">
+                <source>Default value</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.emptyValueBehaviour.option.skip">
+                <source>Skip</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.ExtendedAttributesMixin.editor.function.label">
+                <source>Function to be executed when saving to the database</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.function.option.none">
+                <source>None</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.function.option.time">
+                <source>time()</source>
             </trans-unit>
         </body>
     </file>
