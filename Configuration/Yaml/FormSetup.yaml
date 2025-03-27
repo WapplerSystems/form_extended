@@ -8,6 +8,7 @@ imports:
   - { resource: "./Finishers/RedirectToUri.yaml" }
 
   - { resource: "./FormElements/PrivacyPolicyCheckbox.yaml" }
+  - { resource: "./FormElements/Time.yaml" }
 
   - { resource: "./FormElements/Overrides/AdvancedPassword.yaml" }
   - { resource: "./FormElements/Overrides/Checkbox.yaml" }

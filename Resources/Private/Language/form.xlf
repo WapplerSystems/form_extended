@@ -64,6 +64,33 @@
             <trans-unit id="formEditor.elements.TextMixin.editor.enableRichtext.label">
                 <source>Enable richtext editor</source>
             </trans-unit>
+            <trans-unit id="formEditor.elements.Time.label">
+                <source>Time</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.validators.TimeRange.editor.header.label" xml:space="preserve">
+                <source>Time range</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.editor.validators.TimeRange.label" xml:space="preserve">
+				<source>Time range</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.header.label" xml:space="preserve">
+				<source>Time range</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.minimum" xml:space="preserve">
+				<source>Minimum time</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.maximum" xml:space="preserve">
+				<source>Maximum time</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.minimum.placeholder" xml:space="preserve">
+				<source>A time in format H:i (e.g 14:05)</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.maximum.placeholder" xml:space="preserve">
+				<source>A time in format H:i (e.g 14:05)</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Time.editor.step.label" xml:space="preserve">
+				<source>Frequency</source>
+			</trans-unit>
         </body>
     </file>
 </xliff>

@@ -107,6 +107,9 @@ function _renderTemplateDispatcherFormExtended(formElement, template) {
     case 'PrivacyPolicyCheckbox':
       getFormEditorApp().getViewModel().getStage().renderSimpleTemplateWithValidators(formElement, template);
       break;
+    case 'Time':
+      getFormEditorApp().getViewModel().getStage().renderSimpleTemplateWithValidators(formElement, template);
+      break;
   }
 };
 
