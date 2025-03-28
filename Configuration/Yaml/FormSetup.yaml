@@ -6,6 +6,7 @@ imports:
   - { resource: "./Finishers/EmailToSender.yaml" }
   - { resource: "./Finishers/FeUser.yaml" }
   - { resource: "./Finishers/RedirectToUri.yaml" }
+  - { resource: "./Finishers/Overrides/FlashMessage.yaml" }
 
   - { resource: "./FormElements/PrivacyPolicyCheckbox.yaml" }
   - { resource: "./FormElements/Time.yaml" }

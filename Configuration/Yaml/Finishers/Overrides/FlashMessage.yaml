@@ -1,0 +1,5 @@
+prototypes:
+  standard:
+    finishersDefinition:
+      FlashMessage:
+        implementationClassName: WapplerSystems\FormExtended\Domain\Finishers\FlashMessageFinisher
