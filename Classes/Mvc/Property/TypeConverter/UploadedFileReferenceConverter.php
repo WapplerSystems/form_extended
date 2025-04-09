@@ -37,6 +37,10 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
             /** @var UploadedFile $singleSource */
             foreach ($source as $singleSource) {
 
+                if ($singleSource instanceof UploadedFile) {
+                    $singleSource = $this->convertUploadedFileToUploadInfoArray($singleSource);
+                }
+
                 if (isset($singleSource['tmp_name']) && $singleSource['tmp_name'] === '') {
                     continue;
                 }

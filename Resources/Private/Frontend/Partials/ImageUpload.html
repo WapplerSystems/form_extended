@@ -1,0 +1,56 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:wsfe="http://typo3.org/ns/WapplerSystems/FormExtended/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
+<formvh:renderRenderable renderable="{element}">
+    <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+        <wsfe:form.uploadedResource
+            property="{element.identifier}"
+            as="images"
+            id="{element.uniqueIdentifier}"
+            class="{element.properties.elementClassAttribute}"
+            errorClass="{element.properties.elementErrorClassAttribute}"
+            additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+            accept="{element.properties.allowedMimeTypes}"
+            multiple="{f:if(condition:element.properties.multiple,then:'multiple')}"
+        >
+            <f:if condition="{element.properties.multiple}">
+                <f:then>
+
+                    <div class="multiupload-files">
+                        <f:if condition="{images}">
+                            <f:for as="resource" each="{images}" iteration="iterator">
+                                <div data-target="#{element.uniqueIdentifier}-file-reference-{iterator.index}" class="multiupload-file-block" id="{element.uniqueIdentifier}-preview-{iterator.index}">
+
+                                    <div class="multiupload-image">
+                                        <f:image image="{resource}" maxWidth="{element.properties.imageMaxWidth}" maxHeight="{element.properties.imageMaxHeight}" alt="{formvh:translateElementProperty(element: element, property: 'altText')}" />
+                                        <span class="name">{resource.originalResource.originalFile.name}</span>
+                                    </div>
+
+                                    <span class="multiupload-file-delete"><span>+</span></span>
+
+                                </div>
+                            </f:for>
+                        </f:if>
+                    </div>
+
+                </f:then>
+                <f:else>
+
+                    <f:if condition="{images}">
+                        <div id="{element.uniqueIdentifier}-preview">
+                            <a href="{f:uri.image(image: images, maxWidth: element.properties.imageLinkMaxWidth)}" class="{element.properties.elementClassAttribute}">
+                                <f:image image="{images}" maxWidth="{element.properties.imageMaxWidth}" maxHeight="{element.properties.imageMaxHeight}" alt="{formvh:translateElementProperty(element: element, property: 'altText')}" />
+                            </a>
+                        </div>
+                    </f:if>
+
+                </f:else>
+            </f:if>
+
+        </wsfe:form.uploadedResource>
+
+        <f:if condition="{element.properties.multiple}">
+            <f:asset.script identifier="form_extended-fileupload" src="EXT:form_extended/Resources/Public/JavaScript/Frontend/FileUpload.js" />
+            <f:asset.css identifier="form_extended-fileupldad" href="EXT:form_extended/Resources/Public/CSS/FileUpload.css" />
+        </f:if>
+    </f:render>
+</formvh:renderRenderable>
+</html>
