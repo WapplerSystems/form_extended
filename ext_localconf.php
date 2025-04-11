@@ -7,15 +7,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 
-$iconRegistry = GeneralUtility::makeInstance(
-    IconRegistry::class
-);
-$iconRegistry->registerIcon(
-    'plugin-formextended',
-    SvgIconProvider::class,
-    ['source' => 'EXT:form_extended/Resources/Public/Icons/PluginDoubleOptIn.svg']
-);
-
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class] = [
     'className' => WapplerSystems\FormExtended\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class
 ];
