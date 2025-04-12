@@ -41,21 +41,3 @@ prototypes:
                       propertyPath: ~
                       enableFormelementSelectionButton: false
                       propertyValidators: ~
-              350:
-                editors:
-                  500:
-                    identifier: senderAddress
-                    templateName: Inspector-StaticTextEditor
-                    label: formEditor.elements.Form.finisher.EmailToReceiver.editor.senderAddress.label
-                    fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.senderAddress.fieldExplanationText2
-                    propertyPath:  ~
-                    enableFormelementSelectionButton: false
-                    propertyValidators: ~
-                  600:
-                    identifier: senderName
-                    templateName: Inspector-StaticTextEditor
-                    label: formEditor.elements.Form.finisher.EmailToSender.editor.senderName.label
-                    fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.senderName.fieldExplanationText2
-                    propertyPath: ~
-                    enableFormelementSelectionButton: false
-                    propertyValidators: ~
