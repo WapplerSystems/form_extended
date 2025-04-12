@@ -1,2 +1,4 @@
 name: wapplersystems/form-extended
 label: Form Extended
+dependencies:
+  - typo3/form
