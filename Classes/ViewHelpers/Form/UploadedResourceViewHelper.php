@@ -20,6 +20,7 @@ namespace WapplerSystems\FormExtended\ViewHelpers\Form;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
+use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;
 
@@ -149,7 +150,7 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
         $resources = $this->getValueAttribute();
         if (is_array($resources)) {
             foreach ($resources as $resource) {
-                if ($resource === null) continue;
+                if ($resource === null || $resource instanceof Error) continue;
                 if ($resource instanceof FileReference) {
                     $return[] = $resource;
                     continue;
