@@ -13,24 +13,24 @@ use TYPO3\CMS\Form\Domain\Model\FormElements\StringableFormElementInterface;
  *
  * Scope: frontend
  */
-class Time extends AbstractFormElement implements StringableFormElementInterface
+class Date extends AbstractFormElement implements StringableFormElementInterface
 {
     /**
-     * Initializes the Form Element by setting the data type to "Time"
+     * Initializes the Form Element by setting the data type to "DateTime"
      * @internal
      */
     public function initializeFormElement()
     {
-        //$this->setDataType(\String::class);
+        $this->setDataType(\WapplerSystems\FormExtended\DataType\Date::class);
         parent::initializeFormElement();
     }
 
     /**
-     * @param \WapplerSystems\FormExtended\DataType\Time $value
+     * @param \DateTime $value
      */
     public function valueToString($value): string
     {
-        $dateFormat = $this->properties['displayFormat'] ?? 'H:s';
+        $dateFormat = $this->properties['displayFormat'] ?? 'Y-m-d';
 
         return $value->format($dateFormat);
     }

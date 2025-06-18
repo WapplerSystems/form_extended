@@ -1,0 +1,178 @@
+<?php
+
+declare(strict_types=1);
+
+
+namespace WapplerSystems\FormExtended\Mvc\Property\TypeConverter;
+
+use TYPO3\CMS\Core\Utility\DebugUtility;
+use TYPO3\CMS\Extbase\Error\Error;
+use TYPO3\CMS\Extbase\Property\Exception\InvalidPropertyMappingConfigurationException;
+use TYPO3\CMS\Extbase\Property\Exception\TypeConverterException;
+use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
+use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
+/**
+ * Converter which transforms from different input formats into DateTime objects.
+ *
+ * Source can be either a string or an array. The date string is expected to be formatted
+ * according to DEFAULT_DATE_FORMAT.
+ *
+ * But the default date format can be overridden in the initialize*Action() method like this::
+ *
+ *  $this->arguments['<argumentName>']
+ *    ->getPropertyMappingConfiguration()
+ *    ->forProperty('<propertyName>') // this line can be skipped in order to specify the format for all properties
+ *    ->setTypeConverterOption(\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::class, \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, '<dateFormat>');
+ *
+ * If the source is of type array, it is possible to override the format in the source::
+ *
+ *  array(
+ *   'date' => '<dateString>',
+ *   'dateFormat' => '<dateFormat>'
+ *  );
+ *
+ * By using an array as source you can also override time and timezone of the created DateTime object::
+ *
+ *  array(
+ *   'date' => '<dateString>',
+ *   'hour' => '<hour>', // integer
+ *   'minute' => '<minute>', // integer
+ *   'seconds' => '<seconds>', // integer
+ *   'timezone' => '<timezone>', // string, see http://www.php.net/manual/timezones.php
+ *  );
+ *
+ * As an alternative to providing the date as string, you might supply day, month and year as array items each::
+ *
+ *  array(
+ *   'day' => '<day>', // integer
+ *   'month' => '<month>', // integer
+ *   'year' => '<year>', // integer
+ *  );
+ */
+class TimeConverter extends AbstractTypeConverter
+{
+    /**
+     * @var string
+     */
+    public const CONFIGURATION_DATE_FORMAT = 'dateFormat';
+
+    /**
+     *
+     * @var string
+     */
+    public const DEFAULT_DATE_FORMAT = 'H:i:sP';
+
+    /**
+     * Converts $source to a int or string using the configured dateFormat
+     *
+     * @param string|int|array $source the string to be converted to a int object
+     * @param string $targetType must be "Time"
+     * @param array $convertedChildProperties not used currently
+     * @throws TypeConverterException
+     * @internal only to be used within Extbase, not part of TYPO3 Core API.
+     */
+    public function convertFrom(
+        $source,
+        string $targetType,
+        array $convertedChildProperties = [],
+        ?PropertyMappingConfigurationInterface $configuration = null
+    ): null|int|string|Error {
+        DebugUtility::debug('TimeConverter::convertFrom');
+        DebugUtility::debug($source);
+        DebugUtility::debug($targetType);
+        DebugUtility::debug($configuration);
+
+        $dateFormat = $this->getDefaultDateFormat($configuration);
+        if (is_string($source)) {
+            $dateAsString = $source;
+        } elseif (is_int($source)) {
+            $dateAsString = (string)$source;
+        } else {
+            if (isset($source['date']) && is_string($source['date'])) {
+                $dateAsString = $source['date'];
+            } elseif (isset($source['date']) && is_int($source['date'])) {
+                $dateAsString = (string)$source['date'];
+            } elseif ($this->isDatePartKeysProvided($source)) {
+                if ($source['day'] < 1 || $source['month'] < 1 || $source['year'] < 1) {
+                    return new Error('Could not convert the given date parts into a DateTime object because one or more parts were 0.', 1333032779);
+                }
+                $dateAsString = sprintf('%d-%d-%d', $source['year'], $source['month'], $source['day']);
+            } else {
+                throw new TypeConverterException('Could not convert the given source into a DateTime object because it was not an array with a valid date as a string', 1308003914);
+            }
+            if (isset($source['dateFormat']) && $source['dateFormat'] !== '') {
+                $dateFormat = $source['dateFormat'];
+            }
+        }
+        if ($dateAsString === '') {
+            return null;
+        }
+        if (ctype_digit($dateAsString) && $configuration === null && (!is_array($source) || !isset($source['dateFormat']))) {
+            // todo: type converters are never called without a property mapping configuration
+            $dateFormat = 'U';
+        }
+        if (is_array($source) && isset($source['timezone']) && (string)$source['timezone'] !== '') {
+            try {
+                $timezone = new \DateTimeZone($source['timezone']);
+            } catch (\Exception $e) {
+                throw new TypeConverterException('The specified timezone "' . $source['timezone'] . '" is invalid.', 1308240974);
+            }
+            $date = $targetType::createFromFormat($dateFormat, $dateAsString, $timezone);
+        } else {
+            $date = $targetType::createFromFormat($dateFormat, $dateAsString);
+        }
+        if ($date === false) {
+            return new \TYPO3\CMS\Extbase\Validation\Error(
+                $this->translateErrorMessage(
+                    'LLL:EXT:extbase/Resources/Private/Language/locallang.xlf:converter.datetime.notrecognized',
+                ),
+                1307719788,
+                [$dateAsString, $dateFormat]
+            );
+        }
+        return $date;
+    }
+
+    /**
+     * Wrap static call to LocalizationUtility to simplify unit testing.
+     */
+    protected function translateErrorMessage(string $translateKey): string
+    {
+        return LocalizationUtility::translate($translateKey) ?? '';
+    }
+
+    /**
+     * Returns whether date information (day, month, year) are present as keys in $source.
+     */
+    protected function isDatePartKeysProvided(array $source): bool
+    {
+        return isset($source['day'], $source['month'], $source['year']) &&
+            ctype_digit($source['day']) && ctype_digit($source['month']) && ctype_digit($source['year']);
+    }
+
+    /**
+     * Determines the default date format to use for the conversion.
+     * If no format is specified in the mapping configuration DEFAULT_DATE_FORMAT is used.
+     *
+     * @throws InvalidPropertyMappingConfigurationException
+     */
+    protected function getDefaultDateFormat(?PropertyMappingConfigurationInterface $configuration = null): string
+    {
+        if ($configuration === null) {
+            // todo: type converters are never called without a property mapping configuration
+            return self::DEFAULT_DATE_FORMAT;
+        }
+        $dateFormat = $configuration->getConfigurationValue(TimeConverter::class, self::CONFIGURATION_DATE_FORMAT);
+        if ($dateFormat === null) {
+            return self::DEFAULT_DATE_FORMAT;
+        }
+        if (!is_string($dateFormat)) {
+            throw new InvalidPropertyMappingConfigurationException('CONFIGURATION_DATE_FORMAT must be of type string, "' . get_debug_type($dateFormat) . '" given', 1307719569);
+        }
+        return $dateFormat;
+    }
+
+
+}

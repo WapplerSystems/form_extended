@@ -20,3 +20,17 @@ services:
         event: TYPO3\CMS\Core\Configuration\Event\AfterFlexFormDataStructureParsedEvent
         identifier: 'form-extended/modify-form-flexform'
         after: 'form-framework/modify-data-structure'
+
+  WapplerSystems\FormExtended\Mvc\Property\TypeConverter\TimeConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: WapplerSystems\FormExtended\DataType\Time
+        sources: string
+
+  WapplerSystems\FormExtended\Mvc\Property\TypeConverter\DateConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: WapplerSystems\FormExtended\DataType\Date
+        sources: string

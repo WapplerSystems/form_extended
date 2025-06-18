@@ -93,7 +93,7 @@ class FlashMessageFinisher extends AbstractFinisher
         }
         $messageTitle = $this->parseOption('messageTitle');
         $messageArguments = $this->parseOption('messageArguments');
-        $messageCode = $this->parseOption('messageCode');
+        $messageCode = (int)$this->parseOption('messageCode');
         $severity = $this->parseOption('severity');
         $queueIdentifier = $this->parseOption('queueIdentifier');
 

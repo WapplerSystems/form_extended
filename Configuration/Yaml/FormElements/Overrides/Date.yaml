@@ -1,0 +1,5 @@
+prototypes:
+  standard:
+    formElementsDefinition:
+      Date:
+        implementationClassName: WapplerSystems\FormExtended\Domain\Model\FormElements\Date

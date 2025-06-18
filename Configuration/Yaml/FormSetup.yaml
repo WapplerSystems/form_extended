@@ -12,6 +12,7 @@ imports:
 
   - { resource: "./FormElements/Overrides/AdvancedPassword.yaml" }
   - { resource: "./FormElements/Overrides/Checkbox.yaml" }
+  - { resource: "./FormElements/Overrides/Date.yaml" }
   - { resource: "./FormElements/Overrides/DatePicker.yaml" }
   - { resource: "./FormElements/Overrides/FileUpload.yaml" }
   - { resource: "./FormElements/Overrides/Form.yaml" }
