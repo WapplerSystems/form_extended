@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace WapplerSystems\FormExtended\Mvc\Property\TypeConverter;
 
-use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Property\Exception\InvalidPropertyMappingConfigurationException;
 use TYPO3\CMS\Extbase\Property\Exception\TypeConverterException;
@@ -79,10 +78,6 @@ class DateConverter extends AbstractTypeConverter
         array $convertedChildProperties = [],
         ?PropertyMappingConfigurationInterface $configuration = null
     ): null|\DateTime|Error {
-        DebugUtility::debug('DateConverter::convertFrom');
-        DebugUtility::debug($source);
-        DebugUtility::debug($targetType);
-        DebugUtility::debug($configuration);
 
         $dateFormat = $this->getDefaultDateFormat($configuration);
         if (is_string($source)) {
