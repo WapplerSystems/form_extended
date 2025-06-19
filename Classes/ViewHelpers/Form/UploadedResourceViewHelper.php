@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace WapplerSystems\FormExtended\ViewHelpers\Form;
 
+use TYPO3\CMS\Core\Crypto\HashService;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
-use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
-use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;
+use TYPO3\CMS\Form\Security\HashScope;
 
 /**
  * This ViewHelper makes the specified Image object available for its
@@ -116,7 +116,7 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
             foreach ($resources as $key => $resource) {
                 $resourcePointerIdAttribute = '';
                 if ($this->hasArgument('id')) {
-                    $resourcePointerIdAttribute = ' id="' . htmlspecialchars($this->arguments['id']) . '-file-reference-'.$key.'"';
+                    $resourcePointerIdAttribute = ' id="' . htmlspecialchars($this->arguments['id']) . '-file-reference-' . $key . '"';
                 }
                 $resourcePointerValue = $resource->getUid();
                 if ($resourcePointerValue === null) {
@@ -124,7 +124,7 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
                     // Use the file UID instead, but prefix it with "file:" to communicate this to the type converter
                     $resourcePointerValue = 'file:' . $resource->getOriginalResource()->getOriginalFile()->getUid();
                 }
-                $output .= '<input type="hidden" name="' . htmlspecialchars($this->getName()) . '[submittedFile][resourcePointer][]" value="' . htmlspecialchars($this->hashService->appendHmac($resourcePointerValue)) . '"' . $resourcePointerIdAttribute . ' />';
+                $output .= '<input type="hidden" name="' . htmlspecialchars($this->getName()) . '[submittedFile][resourcePointer][]" value="' . htmlspecialchars($this->hashService->appendHmac((string)$resourcePointerValue, HashScope::ResourcePointer->prefix())) . '"' . $resourcePointerIdAttribute . ' />';
             }
             $this->templateVariableContainer->add($as, $resources);
             $output .= $this->renderChildren();
@@ -155,7 +155,7 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
                     continue;
                 }
                 $ex = $this->propertyMapper->convert($resource, FileReference::class);
-                $return = array_merge($return,$ex);
+                $return = array_merge($return, $ex);
             }
         }
         return $return;
