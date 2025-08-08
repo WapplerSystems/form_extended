@@ -1,10 +1,10 @@
 imports:
   - { resource: "./Finishers/AttachUploadsToObject.yaml" }
   - { resource: "./Finishers/CopyToSenderEmail.yaml" }
-  - { resource: "./Finishers/EmailToReceiver.yaml" }
-  - { resource: "./Finishers/EmailToSender.yaml" }
   - { resource: "./Finishers/FeUser.yaml" }
   - { resource: "./Finishers/RedirectToUri.yaml" }
+  - { resource: "./Finishers/Overrides/EmailToReceiver.yaml" }
+  - { resource: "./Finishers/Overrides/EmailToSender.yaml" }
   - { resource: "./Finishers/Overrides/FlashMessage.yaml" }
 
   - { resource: "./FormElements/PrivacyPolicyCheckbox.yaml" }
