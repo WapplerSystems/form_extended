@@ -4,7 +4,6 @@
 
 It extends the form extension with the following features:
 
-- Double opt-in controller + finisher for realising a registration process
 - country select box by using static_info_tables
 - CopyToSenderEmailFinisher:
 - Multiple file upload support
@@ -12,18 +11,11 @@ It extends the form extension with the following features:
 - Privacy policy checkbox: Set ID of policy page
 - New property fields:
   - info
-  - hide title
-  - hide in receiver mail
-  - hide in sender mail
-- Registration functions
-  - extendable alternative to sf-register
-  - Double Opt-In
-  - fully integrated with form
-  - design flexibility
-  - add your own fields
-  - spam protection
-  - extendable with typical form methods like YAML
-
+- Choose template for email
+- Choose language for email
+- Sender registration in site sets: Editors can choose valid senders in the plugin settings
+- New view helpers:
+  - RenderProcessedFormValueViewHelper: Render value of a single form field
 
 ## Feature: Set senders in site configuration
 

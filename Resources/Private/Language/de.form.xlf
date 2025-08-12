@@ -46,6 +46,10 @@
                 <source>Time</source>
                 <target>Zeit</target>
             </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.Email.editor.language.option.frontend" xml:space="preserve">
+				<source>Frontend language</source>
+                <target>Frontend-Sprache</target>
+			</trans-unit>
         </body>
     </file>
 </xliff>

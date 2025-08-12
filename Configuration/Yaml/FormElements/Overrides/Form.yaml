@@ -150,10 +150,7 @@ prototypes:
                     templateName: Inspector-SingleSelectEditor
                     label: formEditor.elements.Form.finisher.EmailToSender.editor.language.label
                     propertyPath: options.translation.language
-                    selectOptions:
-                      10:
-                        value: default
-                        label: formEditor.elements.Form.finisher.EmailToSender.editor.language.1
+                    selectOptions: []
                   1300:
                     identifier: useFluidEmail
                     templateName: Inspector-CheckboxEditor
@@ -172,4 +169,27 @@ prototypes:
                   9999:
                     identifier: removeButton
                     templateName: Inspector-RemoveElementEditor
-
+              10:
+                editors:
+                  1800:
+                    identifier: templateName
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.EmailToSender.editor.templateName.label
+                    propertyPath: options.templateName
+                    fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.templateName.fieldExplanationText
+                    selectOptions:
+                      10:
+                        value: 'Default'
+                        label: formEditor.elements.Form.finisher.EmailToSender.editor.templateName.option.default
+              20:
+                editors:
+                  1800:
+                    identifier: templateName
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.label
+                    propertyPath: options.templateName
+                    fieldExplanationText: formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.fieldExplanationText
+                    selectOptions:
+                      10:
+                        value: 'Default'
+                        label: formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.option.default

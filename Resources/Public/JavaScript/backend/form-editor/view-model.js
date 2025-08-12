@@ -204,48 +204,7 @@ function renderStaticTextEditor(editorConfiguration, editorHtml, collectionEleme
     );
     propertyData = getCurrentlySelectedFormElement().get(propertyPath);
 
-    //getFormEditorApp().getInspector().getEditor().getValidator()._validateCollectionElement(propertyPath, editorHtml);
-    //_validateCollectionElement(propertyPath, editorHtml);
-
     getHelper().getTemplatePropertyDomElement('propertyPath', editorHtml).text(propertyData);
   }
 
-  return;
-  if (
-    !getUtility().isUndefinedOrNull(editorConfiguration['additionalElementPropertyPaths'])
-    && 'array' === $.type(editorConfiguration['additionalElementPropertyPaths'])
-  ) {
-    for (var i = 0, len = editorConfiguration['additionalElementPropertyPaths'].length; i < len; ++i) {
-      getCurrentlySelectedFormElement().set(editorConfiguration['additionalElementPropertyPaths'][i], propertyData);
-    }
-  }
-
-  renderFormElementSelectorEditorAddition(editorConfiguration, editorHtml, propertyPath);
-
-  getHelper().getTemplatePropertyDomElement('propertyPath', editorHtml).on('keyup paste', function() {
-    if (
-      !!editorConfiguration['doNotSetIfPropertyValueIsEmpty']
-      && !getUtility().isNonEmptyString($(this).val())
-    ) {
-      getCurrentlySelectedFormElement().unset(propertyPath);
-    } else {
-      getCurrentlySelectedFormElement().set(propertyPath, $(this).val());
-    }
-    _validateCollectionElement(propertyPath, editorHtml);
-    if (
-      !getUtility().isUndefinedOrNull(editorConfiguration['additionalElementPropertyPaths'])
-      && 'array' === $.type(editorConfiguration['additionalElementPropertyPaths'])
-    ) {
-      for (var i = 0, len = editorConfiguration['additionalElementPropertyPaths'].length; i < len; ++i) {
-        if (
-          !!editorConfiguration['doNotSetIfPropertyValueIsEmpty']
-          && !getUtility().isNonEmptyString($(this).val())
-        ) {
-          getCurrentlySelectedFormElement().unset(editorConfiguration['additionalElementPropertyPaths'][i]);
-        } else {
-          getCurrentlySelectedFormElement().set(editorConfiguration['additionalElementPropertyPaths'][i], $(this).val());
-        }
-      }
-    }
-  });
 };

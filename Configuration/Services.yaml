@@ -34,3 +34,8 @@ services:
         priority: 10
         target: WapplerSystems\FormExtended\DataType\Date
         sources: string
+
+  WapplerSystems\FormExtended\EventListener\AfterYamlConfigurationLoadedEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'form-extended/after-yaml-configuration-loaded'

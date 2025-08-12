@@ -19,6 +19,14 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Backend\Form\FormDataPro
 ];
 
 
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager::class] = [
+    'className' => WapplerSystems\FormExtended\Mvc\Configuration\ConfigurationManager::class
+];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Form\Controller\FormEditorController::class] = [
+    'className' => WapplerSystems\FormExtended\Controller\FormEditorController::class
+];
+
+
 ExtensionManagementUtility::addTypoScriptSetup(
     'module.tx_form {
     settings {
@@ -43,3 +51,5 @@ if ($featureSiteEmail) {
     );
 }
 
+// Register "formevh:" namespace
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['formevh'][] = 'WapplerSystems\\FormExtended\\ViewHelpers';

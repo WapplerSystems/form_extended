@@ -91,6 +91,21 @@
             <trans-unit id="formEditor.elements.Time.editor.step.label" xml:space="preserve">
 				<source>Frequency</source>
 			</trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.templateName.label" xml:space="preserve">
+				<source>Template</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.templateName.option.default" xml:space="preserve">
+				<source>Default</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.label" xml:space="preserve">
+				<source>Template</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.option.default" xml:space="preserve">
+				<source>Default</source>
+			</trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.Email.editor.language.option.frontend" xml:space="preserve">
+				<source>Frontend language</source>
+			</trans-unit>
         </body>
     </file>
 </xliff>
