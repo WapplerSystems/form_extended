@@ -27,7 +27,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
      * @return mixed|object|LoggerAwareInterface|SingletonInterface|Error|PseudoFileReference|null
      * @internal
      */
-    public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
+    public function convertFrom($source, $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null)
     {
         if ($source instanceof UploadedFile) {
             $source = $this->convertUploadedFileToUploadInfoArray($source);
@@ -58,7 +58,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
         return $this->convertFromSourceToResource($source, $targetType, $convertedChildProperties, $configuration);
     }
 
-    protected function convertFromPointerToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
+    protected function convertFromPointerToResource($source, $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null) {
         // slot/listener using `FileDumpController` instead of direct public URL in (later) rendering process
         $resourcePublicationSlot = GeneralUtility::makeInstance(ResourcePublicationSlot::class);
 
@@ -92,7 +92,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
         return [];
     }
 
-    protected function convertFromSourceToResource($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null) {
+    protected function convertFromSourceToResource($source, $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null) {
         // slot/listener using `FileDumpController` instead of direct public URL in (later) rendering process
         $resourcePublicationSlot = GeneralUtility::makeInstance(ResourcePublicationSlot::class);
 
