@@ -18,11 +18,9 @@ declare(strict_types=1);
 namespace WapplerSystems\FormExtended\Mvc\Configuration;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use Symfony\Component\DependencyInjection\Attribute\AsAlias;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Form\Mvc\Configuration\TypoScriptService;
-use TYPO3\CMS\Form\Mvc\Configuration\YamlSource;
+use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface;
 use WapplerSystems\FormExtended\Event\AfterYamlConfigurationLoadedEvent;
 
 
@@ -32,20 +30,9 @@ use WapplerSystems\FormExtended\Event\AfterYamlConfigurationLoadedEvent;
  * Scope: frontend / backend
  * @internal
  */
+#[AsAlias(ConfigurationManagerInterface::class, public: true)]
 readonly class ConfigurationManager extends \TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager
 {
-    public function __construct(
-        private YamlSource $yamlSource,
-        #[Autowire(service: 'cache.assets')]
-        private FrontendInterface $cache,
-        private TypoScriptService $typoScriptService
-    ) {
-        parent::__construct(
-            $yamlSource,
-            $cache,
-            $typoScriptService
-        );
-    }
 
     /**
      * Load and parse YAML files which are configured within the TypoScript
