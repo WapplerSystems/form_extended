@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace WapplerSystems\FormExtended\Mvc\Configuration;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\DependencyInjection\Attribute\AsAlias;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface;
@@ -47,8 +48,11 @@ readonly class ConfigurationManager extends \TYPO3\CMS\Form\Mvc\Configuration\Co
      * * return all configuration paths within TYPO3.CMS
      * * sort by array keys, if all keys within the current nesting level are numerical keys
      * * resolve possible TypoScript settings in FE mode
+     * @param array $typoScriptSettings
+     * @param bool $isFrontend
+     * @param ServerRequestInterface|null $request
      */
-    public function getYamlConfiguration(array $typoScriptSettings, bool $isFrontend): array
+    public function getYamlConfiguration(array $typoScriptSettings, bool $isFrontend, ?ServerRequestInterface $request = null): array
     {
 
         $yamlConfiguration = parent::getYamlConfiguration($typoScriptSettings, $isFrontend);

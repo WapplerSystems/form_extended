@@ -85,7 +85,7 @@ class FlashMessageFinisher extends AbstractFinisher
      *
      * @throws FinisherException
      */
-    protected function executeInternal()
+    protected function executeInternal(): void
     {
         $messageBody = $this->parseOption('messageBody');
         if (!is_string($messageBody)) {

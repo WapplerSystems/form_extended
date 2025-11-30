@@ -23,7 +23,7 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
      * @throws Exception
      * @see AbstractFinisher::execute()
      */
-    protected function executeInternal()
+    protected function executeInternal(): void
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
 

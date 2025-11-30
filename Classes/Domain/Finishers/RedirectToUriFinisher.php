@@ -28,9 +28,10 @@ class RedirectToUriFinisher extends AbstractFinisher
 
     /**
      * Executes this finisher
+     * @throws PropagateResponseException
      * @see AbstractFinisher::execute()
      */
-    protected function executeInternal()
+    protected function executeInternal(): void
     {
         $uri = $this->parseOption('uri');
         $statusCode = (int)$this->parseOption('statusCode');
@@ -50,7 +51,7 @@ class RedirectToUriFinisher extends AbstractFinisher
      * @param int $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
      * @throws PropagateResponseException
      */
-    protected function redirectToUri(string $uri, int $statusCode = 303)
+    protected function redirectToUri(string $uri, int $statusCode = 303): void
     {
         $uri = $this->addBaseUriIfNecessary($uri);
         $response = new RedirectResponse($uri, $statusCode);
