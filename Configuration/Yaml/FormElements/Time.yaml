@@ -24,7 +24,7 @@ prototypes:
               propertyPath: defaultValue
               placeholder: formEditor.elements.Time.editor.defaultValue.placeholder
               propertyValidators:
-                10: RFC3339FullDateOrEmpty
+                10: ISO8601OrEmpty
             550:
               identifier: step
               templateName: Inspector-TextEditor

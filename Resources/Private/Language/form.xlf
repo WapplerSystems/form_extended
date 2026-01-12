@@ -67,45 +67,51 @@
             <trans-unit id="formEditor.elements.Time.label">
                 <source>Time</source>
             </trans-unit>
-            <trans-unit id="formEditor.elements.FormElement.validators.TimeRange.editor.header.label" xml:space="preserve">
+            <trans-unit id="formEditor.elements.FormElement.validators.TimeRange.editor.header.label">
                 <source>Time range</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.editor.validators.TimeRange.label" xml:space="preserve">
-				<source>Time range</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.header.label" xml:space="preserve">
-				<source>Time range</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.minimum" xml:space="preserve">
-				<source>Minimum time</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.maximum" xml:space="preserve">
-				<source>Maximum time</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.minimum.placeholder" xml:space="preserve">
-				<source>A time in format H:i (e.g 14:05)</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.maximum.placeholder" xml:space="preserve">
-				<source>A time in format H:i (e.g 14:05)</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Time.editor.step.label" xml:space="preserve">
-				<source>Frequency</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.templateName.label" xml:space="preserve">
-				<source>Template</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.templateName.option.default" xml:space="preserve">
-				<source>Default</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.label" xml:space="preserve">
-				<source>Template</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.option.default" xml:space="preserve">
-				<source>Default</source>
-			</trans-unit>
-            <trans-unit id="formEditor.elements.Form.finisher.Email.editor.language.option.frontend" xml:space="preserve">
-				<source>Frontend language</source>
-			</trans-unit>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.editor.validators.TimeRange.label">
+                <source>Time range</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.header.label">
+                <source>Time range</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.minimum">
+                <source>Minimum time</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.maximum">
+                <source>Maximum time</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.minimum.placeholder">
+                <source>A time in format H:i (e.g 14:05)</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.validators.TimeRange.editor.maximum.placeholder">
+                <source>A time in format H:i (e.g 14:05)</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.editor.step.label">
+                <source>Step</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.editor.step.fieldExplanationText">
+                <source>In seconds or "any". Default: 60</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Time.editor.defaultValue.placeholder">
+                <source>18:00</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.templateName.label">
+                <source>Template</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.templateName.option.default">
+                <source>Default</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.label">
+                <source>Template</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.option.default">
+                <source>Default</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.Email.editor.language.option.frontend">
+                <source>Frontend language</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
