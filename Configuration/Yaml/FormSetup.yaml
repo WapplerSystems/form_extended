@@ -1,7 +1,6 @@
 imports:
   - { resource: "./Finishers/AttachUploadsToObject.yaml" }
   - { resource: "./Finishers/CopyToSenderEmail.yaml" }
-  - { resource: "./Finishers/FeUser.yaml" }
   - { resource: "./Finishers/RedirectToUri.yaml" }
   - { resource: "./Finishers/Overrides/EmailToReceiver.yaml" }
   - { resource: "./Finishers/Overrides/EmailToSender.yaml" }

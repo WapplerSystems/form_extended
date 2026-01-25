@@ -28,9 +28,6 @@
             <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.senderName.fieldExplanationText2">
                 <source>Set by site configuration and plugin</source>
             </trans-unit>
-            <trans-unit id="tt_content.finishersDefinition.FeUser.label">
-                <source>Fe-User</source>
-            </trans-unit>
             <trans-unit id="formEditor.elements.SelectionMixin.editor.renderAs.label">
                 <source>Render as</source>
             </trans-unit>

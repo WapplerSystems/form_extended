@@ -10,32 +10,8 @@
             <trans-unit id="flexform.forward">
                 <source>Forward to page</source>
             </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.email">
-                <source>Email</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.encoded_values">
-                <source>Values</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.is_validated">
-                <source>Is validated</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.validation_hash">
-                <source>Validation hash</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.validation_date">
-                <source>Validation date</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin.last_sent">
-                <source>Last validation mail sent</source>
-            </trans-unit>
-            <trans-unit id="tx_formextended_domain_model_optin">
-                <source>Opt in requests</source>
-            </trans-unit>
             <trans-unit id="site_sender">
                 <source>Sender</source>
-            </trans-unit>
-            <trans-unit id="registration_completed">
-                <source>Registration completed</source>
             </trans-unit>
         </body>
     </file>
