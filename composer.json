@@ -1,40 +1,43 @@
 {
-  "name": "wapplersystems/form_extended",
-  "type": "typo3-cms-extension",
-  "description": "Multi upload field, sender addresses in site config, new field types and other",
-  "keywords": [
-    "TYPO3"
-  ],
-  "homepage": "https://wappler.systems",
-  "authors": [
-    {
-      "name": "Sven Wappler",
-      "role": "Developer",
-      "homepage": "https://wappler.systems"
-    }
-  ],
-  "license": [
-    "GPL-2.0+"
-  ],
-  "require": {
-    "typo3/cms-form": "^13.4"
-  },
-  "require-dev": {
-  },
-  "autoload": {
-    "psr-4": {
-      "WapplerSystems\\FormExtended\\": "Classes"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-    }
-  },
-  "scripts": {
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "form_extended"
-    }
-  }
+	"name": "wapplersystems/form_extended",
+	"type": "typo3-cms-extension",
+	"description": "Multi upload field, sender addresses in site config, new field types and other",
+	"keywords": [
+		"TYPO3"
+	],
+	"homepage": "https://wappler.systems",
+	"authors": [
+		{
+			"name": "Sven Wappler",
+			"role": "Developer",
+			"homepage": "https://wappler.systems"
+		}
+	],
+	"license": [
+		"GPL-2.0+"
+	],
+	"require": {
+		"typo3/cms-form": "^13.4"
+	},
+	"conflict": {
+		"hn/typo3-mail-sender": "*"
+	},
+	"require-dev": {
+	},
+	"autoload": {
+		"psr-4": {
+			"WapplerSystems\\FormExtended\\": "Classes"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+		}
+	},
+	"scripts": {
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "form_extended"
+		}
+	}
 }
