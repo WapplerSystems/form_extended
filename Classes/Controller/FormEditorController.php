@@ -17,9 +17,12 @@ class FormEditorController extends \TYPO3\CMS\Form\Controller\FormEditorControll
 
 
     /**
-     * @todo move this to FormDefinitionConversionService
+     * @param array $prototypeConfiguration
+     * @param array $formDefinition
+     * @param string $formPersistenceIdentifier
+     * @return array
      */
-    protected function transformFormDefinitionForFormEditor(array $prototypeConfiguration, array $formDefinition): array
+    protected function transformFormDefinitionForFormEditor(array $prototypeConfiguration, array $formDefinition, string $formPersistenceIdentifier): array
     {
         /** @var array<string, list<string>> $multiValueFormElementProperties */
         $multiValueFormElementProperties = [];
@@ -59,7 +62,7 @@ class FormEditorController extends \TYPO3\CMS\Form\Controller\FormEditorControll
             'identifier',
             $multiValueFinisherProperties
         );
-        $formDefinition = $this->formDefinitionConversionService->addHmacData($formDefinition);
+        $formDefinition = $this->formDefinitionConversionService->addHmacData($formDefinition, $formPersistenceIdentifier);
         return $formDefinition;
     }
 
