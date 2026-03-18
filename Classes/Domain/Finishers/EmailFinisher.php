@@ -144,6 +144,15 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
             ->assign('title', $title);
 
+        $formValues = $formRuntime->getFormState()->getFormValues();
+        foreach ($formValues as $identifier => $value) {
+            if (is_string($value)) {
+                $mail->assign($identifier, $value);
+            } elseif (is_array($value)) {
+                $mail->assign($identifier, implode(', ',$value));
+            }
+        }
+
         if (!empty($replyToRecipients)) {
             $mail->replyTo(...$replyToRecipients);
         }
