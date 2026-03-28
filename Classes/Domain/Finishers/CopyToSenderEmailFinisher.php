@@ -26,7 +26,7 @@ class CopyToSenderEmailFinisher extends EmailFinisher
         if ($conditionFieldName === null) {
             throw new FinisherException('The option "conditionFieldName" must be set for the CopyToSenderEmailFinisher.', 1612660449);
         }
-        if ((boolean)($conditionFieldName) === false) {
+        if ((bool)($conditionFieldName) === false) {
             return false;
         }
         return !isset($this->options['renderingOptions']['enabled']) || (bool)$this->parseOption('renderingOptions.enabled') === true;
