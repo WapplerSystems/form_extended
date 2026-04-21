@@ -193,3 +193,15 @@ prototypes:
                       10:
                         value: 'Default'
                         label: formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.option.default
+              50:
+                editors:
+                  1800:
+                    identifier: templateName
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.Confirmation.editor.templateName.label
+                    propertyPath: options.templateName
+                    fieldExplanationText: formEditor.elements.Form.finisher.Confirmation.editor.templateName.fieldExplanationText
+                    selectOptions:
+                      10:
+                        value: 'Confirmation'
+                        label: formEditor.elements.Form.finisher.Confirmation.editor.templateName.option.default

@@ -106,6 +106,12 @@
             <trans-unit id="formEditor.elements.Form.finisher.EmailToReceiver.editor.templateName.option.default">
                 <source>Default</source>
             </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.Confirmation.editor.templateName.label">
+                <source>Template</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.Confirmation.editor.templateName.option.default">
+                <source>Default</source>
+            </trans-unit>
             <trans-unit id="formEditor.elements.Form.finisher.Email.editor.language.option.frontend">
                 <source>Frontend language</source>
             </trans-unit>
