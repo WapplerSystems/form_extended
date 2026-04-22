@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Http\UploadedFile;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Error;
+use TYPO3\CMS\Form\Security\HashScope;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Form\Mvc\Property\Exception\TypeConverterException;
 use TYPO3\CMS\Form\Mvc\Property\TypeConverter\PseudoFileReference;
@@ -70,7 +71,7 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
                     try {
                         // File references use numeric resource pointers, direct
                         // file relations are using "file:" prefix (e.g. "file:5")
-                        $resourcePointer = $this->hashService->validateAndStripHmac($resourcePointerSource);
+                        $resourcePointer = $this->hashService->validateAndStripHmac($resourcePointerSource,HashScope::ResourcePointer->prefix());
                         if (strpos($resourcePointer, 'file:') === 0) {
                             $fileUid = (int)substr($resourcePointer, 5);
                             $resource = $this->createFileReferenceFromFalFileObject($this->resourceFactory->getFileObject($fileUid));

@@ -104,15 +104,20 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
         $this->tag->addAttribute('type', 'file');
 
         if (isset($this->arguments['multiple'])) {
+            $multiple = true;
             $this->tag->addAttribute('name', $name . '[]');
         } else {
             $this->tag->addAttribute('name', $name);
+            $multiple = false;
         }
 
         $this->setErrorClassAttribute();
         $output .= $this->tag->render();
 
         if ($resources !== null) {
+            if ($resources instanceof FileReference) {
+                $resources = [$resources];
+            }
             foreach ($resources as $key => $resource) {
                 $resourcePointerIdAttribute = '';
                 if ($this->hasArgument('id')) {
@@ -125,6 +130,9 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
                     $resourcePointerValue = 'file:' . $resource->getOriginalResource()->getOriginalFile()->getUid();
                 }
                 $output .= '<input type="hidden" name="' . htmlspecialchars($this->getName()) . '[submittedFile][resourcePointer][]" value="' . htmlspecialchars($this->hashService->appendHmac((string)$resourcePointerValue, HashScope::ResourcePointer->prefix())) . '"' . $resourcePointerIdAttribute . ' />';
+            }
+            if ($multiple == false) {
+                $resources = reset($resources);
             }
             $this->templateVariableContainer->add($as, $resources);
             $output .= $this->renderChildren();
@@ -157,6 +165,8 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
                 $ex = $this->propertyMapper->convert($resource, FileReference::class);
                 $return = array_merge($return, $ex);
             }
+        } elseif ($resources instanceof FileReference) {
+            return $resources;
         }
         return $return;
     }
