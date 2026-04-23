@@ -7,10 +7,27 @@ services:
   WapplerSystems\FormExtended\:
     resource: '../Classes/*'
 
+  # Service aliases replacing deprecated $GLOBALS['SYS']['Objects'] overrides
+  TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter:
+    alias: WapplerSystems\FormExtended\Mvc\Property\TypeConverter\UploadedFileReferenceConverter
+
+  TYPO3\CMS\Backend\Form\FormDataProvider\SiteTcaInline:
+    alias: WapplerSystems\FormExtended\Form\FormDataProvider\SiteTcaInline
+
+  TYPO3\CMS\Backend\Form\FormDataProvider\SiteDatabaseEditRow:
+    alias: WapplerSystems\FormExtended\Form\FormDataProvider\SiteDatabaseEditRow
+
+  TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager:
+    alias: WapplerSystems\FormExtended\Mvc\Configuration\ConfigurationManager
+
+  TYPO3\CMS\Form\Controller\FormEditorController:
+    alias: WapplerSystems\FormExtended\Controller\FormEditorController
+
 
   WapplerSystems\FormExtended\EventListener\DataStructureIdentifierListener:
     tags:
       - name: event.listener
+        event: TYPO3\CMS\Core\Configuration\Event\AfterFlexFormDataStructureParsedEvent
         identifier: 'form-extended/modify-data-structure'
         method: 'modifyDataStructure'
 

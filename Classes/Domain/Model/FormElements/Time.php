@@ -21,7 +21,6 @@ class Time extends AbstractFormElement implements StringableFormElementInterface
      */
     public function initializeFormElement()
     {
-        //$this->setDataType(\String::class);
         parent::initializeFormElement();
     }
 
