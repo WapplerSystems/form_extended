@@ -2,30 +2,16 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
 namespace WapplerSystems\FormExtended\Form\FormDataProvider;
 
 /**
- * Special data provider for the sites configuration module.
- *
- * Handle inline children of 'site'
+ * Extended SiteTcaInline to support additional inline tables like 'site_sender'.
  */
 class SiteTcaInline extends \TYPO3\CMS\Backend\Form\FormDataProvider\SiteTcaInline
 {
     /**
-     * Resolve inline fields
+     * Resolve inline fields.
+     * Extended to support 'site_sender' inline table.
      */
     public function addData(array $result): array
     {

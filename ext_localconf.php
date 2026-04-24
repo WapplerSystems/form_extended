@@ -4,6 +4,22 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+// Class overrides for FormDataProviders and core classes instantiated via makeInstance
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Form\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class] = [
+    'className' => \WapplerSystems\FormExtended\Mvc\Property\TypeConverter\UploadedFileReferenceConverter::class,
+];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Backend\Form\FormDataProvider\SiteTcaInline::class] = [
+    'className' => \WapplerSystems\FormExtended\Form\FormDataProvider\SiteTcaInline::class,
+];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Backend\Form\FormDataProvider\SiteDatabaseEditRow::class] = [
+    'className' => \WapplerSystems\FormExtended\Form\FormDataProvider\SiteDatabaseEditRow::class,
+];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager::class] = [
+    'className' => \WapplerSystems\FormExtended\Mvc\Configuration\ConfigurationManager::class,
+];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Form\Controller\FormEditorController::class] = [
+    'className' => \WapplerSystems\FormExtended\Controller\FormEditorController::class,
+];
 
 ExtensionManagementUtility::addTypoScriptSetup(
     'module.tx_form {

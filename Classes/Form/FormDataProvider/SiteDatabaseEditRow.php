@@ -2,36 +2,19 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
 namespace WapplerSystems\FormExtended\Form\FormDataProvider;
 
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Special data provider for the sites configuration module.
- *
- * Fetch "row" data from yml file and set as 'databaseRow'
+ * Extended SiteDatabaseEditRow to support additional inline tables like 'site_sender'.
  */
 readonly class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvider\SiteDatabaseEditRow
 {
 
-
     /**
      * First level of ['customData']['siteData'] to ['databaseRow']
+     * Extended to support 'site_sender' inline table.
      *
      * @throws \RuntimeException
      */
@@ -42,15 +25,17 @@ readonly class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvi
         }
 
         $tableName = $result['tableName'];
-        if ($tableName === 'site') {
-            $rootPageId = (int)$result['vanillaUid'];
-            $rowData = $this->getRawConfigurationForSiteWithRootPageId($rootPageId);
-            $result['databaseRow']['uid'] = $rowData['rootPageId'];
-            $result['databaseRow']['identifier'] = $result['customData']['siteIdentifier'];
-        } elseif (in_array($tableName, ['site_errorhandling', 'site_language', 'site_route', 'site_base_variant', 'site_sender'], true)) {
-            $rootPageId = (int)($result['inlineTopMostParentUid'] ?? $result['inlineParentUid']);
+
+        // Add 'site_sender' to supported inline tables
+        if ($tableName === 'site_sender') {
+            $unprocessedRootPageId = $result['inlineTopMostParentUid'] ?? $result['inlineParentUid'];
+
+            $processedRootPageId = $this->envPlaceholderProcessor->canProcess($unprocessedRootPageId)
+                ? (int)$this->envPlaceholderProcessor->process($unprocessedRootPageId)
+                : (int)$unprocessedRootPageId;
+
             try {
-                $rowData = $this->getRawConfigurationForSiteWithRootPageId($rootPageId);
+                $rowData = $this->getRawConfigurationForSiteWithRootPageId($processedRootPageId);
                 $parentFieldName = $result['inlineParentFieldName'];
                 if (!isset($rowData[$parentFieldName])) {
                     throw new \RuntimeException('Field "' . $parentFieldName . '" not found', 1520886092);
@@ -60,19 +45,18 @@ readonly class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvi
             } catch (SiteNotFoundException $e) {
                 $rowData = [];
             }
-        } else {
-            throw new \RuntimeException('Other tables not implemented', 1520886234);
+
+            foreach ($rowData as $fieldName => $value) {
+                if (!is_array($value)) {
+                    $result['databaseRow'][$fieldName] = $value;
+                }
+            }
+            $result['databaseRow']['pid'] = 0;
+            return $result;
         }
 
-        foreach ($rowData as $fieldName => $value) {
-            // Flat values only - databaseRow has no "tree"
-            if (!is_array($value)) {
-                $result['databaseRow'][$fieldName] = $value;
-            }
-        }
-        // All "records" are always on pid 0
-        $result['databaseRow']['pid'] = 0;
-        return $result;
+        // All other tables handled by parent
+        return parent::addData($result);
     }
 
 }
