@@ -29,7 +29,6 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
-use TYPO3\CMS\Form\Service\TranslationService;
 use WapplerSystems\FormExtended\Event\MailBeforeSendingEvent;
 
 /**
@@ -130,12 +129,6 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         $formRuntime = $this->finisherContext->getFormRuntime();
 
-        $translationService = GeneralUtility::makeInstance(TranslationService::class);
-        if (is_string($this->options['translation']['language'] ?? null) && $this->options['translation']['language'] !== '') {
-            $languageBackup = $translationService->getLanguage();
-            $translationService->setLanguage($this->options['translation']['language']);
-        }
-
         $mail = $this
             ->initializeFluidEmail($formRuntime)
             ->from(new Address($senderAddress, $senderName))
@@ -143,6 +136,13 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
             ->subject($subject)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
             ->assign('title', $title);
+
+        // v14: TranslationService no longer exposes get/setLanguage(). Mirror
+        // the core EmailFinisher and pass the language as a FluidEmail var so
+        // the template can pick it up via {languageKey}.
+        if (is_string($this->options['translation']['language'] ?? null) && $this->options['translation']['language'] !== '') {
+            $mail->assign('languageKey', $this->options['translation']['language']);
+        }
 
         if (!empty($replyToRecipients)) {
             $mail->replyTo(...$replyToRecipients);
@@ -154,10 +154,6 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
         if (!empty($blindCarbonCopyRecipients)) {
             $mail->bcc(...$blindCarbonCopyRecipients);
-        }
-
-        if (!empty($languageBackup)) {
-            $translationService->setLanguage($languageBackup);
         }
 
         if ($attachUploads) {
