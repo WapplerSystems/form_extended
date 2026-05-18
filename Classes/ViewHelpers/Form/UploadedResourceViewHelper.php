@@ -72,11 +72,15 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
     public function initializeArguments(): void
     {
         parent::initializeArguments();
-        $this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
-        $this->registerTagAttribute('multiple', 'string', 'Specifies that the file input element should allow multiple selection of files');
+        // v14: registerTagAttribute() and registerUniversalTagAttributes() have
+        // been removed from AbstractTagBasedViewHelper. additionalAttributes/
+        // data/aria are now wired up automatically by the base class; explicit
+        // tag attributes are registered as normal arguments and copied onto
+        // the TagBuilder in render().
+        $this->registerArgument('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
+        $this->registerArgument('multiple', 'string', 'Specifies that the file input element should allow multiple selection of files');
         $this->registerArgument('accept', 'array', 'Values for the accept attribute', false, []);
         $this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this ViewHelper', false, 'f3-form-error');
-        $this->registerUniversalTagAttributes();
         $this->registerArgument('as', 'string', '');
     }
 
@@ -95,6 +99,10 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
             $this->tag->addAttribute('accept', implode(',', $accept));
         }
 
+        $disabled = $this->arguments['disabled'] ?? null;
+        if (is_string($disabled) && $disabled !== '') {
+            $this->tag->addAttribute('disabled', $disabled);
+        }
 
         $name = $this->getName();
         $allowedFields = ['name', 'type', 'tmp_name', 'error', 'size'];
@@ -103,8 +111,10 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
         }
         $this->tag->addAttribute('type', 'file');
 
-        if (isset($this->arguments['multiple'])) {
+        $multiple = $this->arguments['multiple'] ?? null;
+        if (is_string($multiple) && $multiple !== '') {
             $this->tag->addAttribute('name', $name . '[]');
+            $this->tag->addAttribute('multiple', $multiple);
         } else {
             $this->tag->addAttribute('name', $name);
         }
