@@ -4,13 +4,23 @@ declare(strict_types=1);
 
 namespace WapplerSystems\FormExtended\Form\FormDataProvider;
 
+use TYPO3\CMS\Backend\Configuration\SiteTcaConfiguration;
+use TYPO3\CMS\Core\Configuration\Processor\Placeholder\EnvPlaceholderProcessor;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
+use TYPO3\CMS\Core\Site\SiteFinder;
 
 /**
  * Extended SiteDatabaseEditRow to support additional inline tables like 'site_sender'.
  */
 readonly class SiteDatabaseEditRow extends \TYPO3\CMS\Backend\Form\FormDataProvider\SiteDatabaseEditRow
 {
+    public function __construct(
+        SiteFinder $siteFinder,
+        SiteTcaConfiguration $siteTcaConfiguration,
+        private EnvPlaceholderProcessor $envPlaceholderProcessor,
+    ) {
+        parent::__construct($siteFinder, $siteTcaConfiguration, $envPlaceholderProcessor);
+    }
 
     /**
      * First level of ['customData']['siteData'] to ['databaseRow']
