@@ -22,9 +22,21 @@
     const ENDPOINT = '/_form_extended/password-policy';
     let policyPromise = null;
 
+    /**
+     * Build the endpoint URL with a `lang=` query parameter taken from
+     * the document language. The middleware uses this to localize the
+     * rule labels to the page the user is actually viewing, since the
+     * endpoint itself has no language prefix in the URL and would
+     * otherwise always fall back to the site's default language.
+     */
+    function endpointUrl() {
+        const lang = (document.documentElement.lang || '').trim();
+        return lang ? ENDPOINT + '?lang=' + encodeURIComponent(lang) : ENDPOINT;
+    }
+
     function loadPolicy() {
         if (policyPromise === null) {
-            policyPromise = fetch(ENDPOINT, { credentials: 'same-origin' })
+            policyPromise = fetch(endpointUrl(), { credentials: 'same-origin' })
                 .then(function (r) { return r.ok ? r.json() : { rules: [] }; })
                 .catch(function () { return { rules: [] }; });
         }

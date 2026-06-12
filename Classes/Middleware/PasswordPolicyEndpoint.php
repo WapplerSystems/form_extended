@@ -62,9 +62,32 @@ final class PasswordPolicyEndpoint implements MiddlewareInterface
         }
 
         $site = $request->getAttribute('site');
-        $language = $site !== null && method_exists($site, 'getDefaultLanguage')
-            ? $site->getDefaultLanguage()
-            : null;
+
+        // The endpoint URL itself has no language prefix, so the client
+        // hands us the active page language via `?lang=…`. Match it
+        // against the site's configured languages by ISO code OR hreflang
+        // (so both "en" and "en-US" resolve cleanly). Fall back to the
+        // site default if the param is missing or unknown.
+        $langParam = trim((string)($request->getQueryParams()['lang'] ?? ''));
+        $language = null;
+        if ($langParam !== '' && $site !== null) {
+            foreach ($site->getLanguages() as $candidate) {
+                $locale = $candidate->getLocale();
+                $languageCode = $locale->getLanguageCode();
+                if (strcasecmp($languageCode, $langParam) === 0
+                    || strcasecmp($candidate->getHreflang(), $langParam) === 0
+                    || strcasecmp((string)$locale, $langParam) === 0
+                ) {
+                    $language = $candidate;
+                    break;
+                }
+            }
+        }
+        if ($language === null) {
+            $language = $site !== null && method_exists($site, 'getDefaultLanguage')
+                ? $site->getDefaultLanguage()
+                : null;
+        }
         $ls = $language !== null
             ? $this->languageServiceFactory->createFromSiteLanguage($language)
             : $this->languageServiceFactory->create('default');
