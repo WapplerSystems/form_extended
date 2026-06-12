@@ -45,7 +45,14 @@ final class PasswordPolicyEndpoint implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($request->getUri()->getPath() !== self::PATH) {
+        // Match path by suffix so the endpoint also fires after
+        // SiteBaseRedirectResolver has prepended a language base (e.g.
+        // /de/_form_extended/password-policy). Without this, sites whose
+        // default language has a non-empty base would 307-redirect the
+        // request out of our reach on the first pass and the
+        // language-prefixed second pass would no longer match an exact
+        // string comparison.
+        if (!str_ends_with($request->getUri()->getPath(), self::PATH)) {
             return $handler->handle($request);
         }
 
