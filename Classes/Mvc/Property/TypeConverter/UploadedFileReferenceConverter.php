@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Http\UploadedFile;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Error;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Form\Mvc\Property\Exception\TypeConverterException;
 use TYPO3\CMS\Form\Mvc\Property\TypeConverter\PseudoFileReference;
@@ -36,7 +37,12 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
             return null;
         }
         if (is_array($source) && !isset($source['tmp_name'])) {
-            $resources = [];
+            // v14: ProcessingRule iterates an ObjectStorage value per element for
+            // validators implementing ObjectStorageElementValidatorInterface
+            // (MimeTypeValidator, FileSizeValidator). A plain array would instead be
+            // passed as a whole to those validators and rejected. So return an
+            // ObjectStorage, mirroring the core converter's handleMultiUploadSource().
+            $resources = new ObjectStorage();
             /** @var UploadedFile $singleSource */
             foreach ($source as $singleSource) {
 
@@ -48,9 +54,17 @@ class UploadedFileReferenceConverter extends \TYPO3\CMS\Form\Mvc\Property\TypeCo
                     continue;
                 }
                 if (isset($singleSource['resourcePointer'])) {
-                    $resources = array_merge($resources, $this->convertFromPointerToResource($singleSource, $targetType, $convertedChildProperties, $configuration));
+                    foreach ($this->convertFromPointerToResource($singleSource, $targetType, $convertedChildProperties, $configuration) as $resource) {
+                        $resources->attach($resource);
+                    }
                 } else {
-                    $resources[] = $this->convertFromSourceToResource($singleSource, $targetType, $convertedChildProperties, $configuration);
+                    $resource = $this->convertFromSourceToResource($singleSource, $targetType, $convertedChildProperties, $configuration);
+                    if ($resource instanceof Error) {
+                        return $resource;
+                    }
+                    if ($resource !== null) {
+                        $resources->attach($resource);
+                    }
                 }
             }
             return $resources;

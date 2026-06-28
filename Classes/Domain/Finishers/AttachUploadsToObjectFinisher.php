@@ -38,6 +38,13 @@ class AttachUploadsToObjectFinisher extends AbstractFinisher
             if (!$files) {
                 continue;
             }
+            // v14: multi-uploads arrive as an ObjectStorage, single uploads as a
+            // FileReference. Normalize to a plain array for array_filter()/foreach below.
+            if ($files instanceof \Traversable) {
+                $files = iterator_to_array($files);
+            } elseif (!is_array($files)) {
+                $files = [$files];
+            }
             if (!isset($elementsOptions[$element->getIdentifier()])) {
                 continue;
             }

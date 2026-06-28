@@ -157,7 +157,10 @@ class UploadedResourceViewHelper extends AbstractFormFieldViewHelper
         }
         $return = [];
         $resources = $this->getValueAttribute();
-        if (is_array($resources)) {
+        // v14: a multi-upload value is an ObjectStorage; is_iterable() covers both
+        // it and a plain array so previously uploaded files survive a redisplay
+        // after a validation error.
+        if (is_iterable($resources)) {
             foreach ($resources as $resource) {
                 if ($resource === null) continue;
                 if ($resource instanceof FileReference) {

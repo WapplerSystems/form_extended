@@ -163,7 +163,10 @@ class EmailFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
                 }
                 $file = $formRuntime[$element->getIdentifier()];
                 if ($file) {
-                    if (is_array($file)) {
+                    // v14 multi-uploads arrive as an ObjectStorage (single uploads as a
+                    // FileReference). is_iterable() covers both array and ObjectStorage,
+                    // while a single FileReference/File falls through to the block below.
+                    if (is_iterable($file)) {
                         foreach ($file as $singleFile) {
                             if ($singleFile instanceof FileReference) {
                                 $singleFile = $singleFile->getOriginalResource();
