@@ -4,6 +4,14 @@ prototypes:
       FileUpload:
         formEditor:
           editors:
+            300:
+              selectOptions:
+                80:
+                  value: image/jpeg
+                  label: formEditor.elements.FileUpload.editor.allowedMimeTypes.jpg
+                90:
+                  value: image/png
+                  label: formEditor.elements.FileUpload.editor.allowedMimeTypes.png
             310:
               identifier: multiple
               templateName: Inspector-CheckboxEditor

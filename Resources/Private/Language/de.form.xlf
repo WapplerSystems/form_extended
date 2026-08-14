@@ -22,6 +22,14 @@
                 <source>Enable multiple file upload</source>
                 <target>Aktiviere mehrfachen Datei-Upload</target>
             </trans-unit>
+            <trans-unit id="formEditor.elements.FileUpload.editor.allowedMimeTypes.jpg">
+                <source>Images (jpg)</source>
+                <target>Bilder (jpg)</target>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FileUpload.editor.allowedMimeTypes.png">
+                <source>Images (png)</source>
+                <target>Bilder (png)</target>
+            </trans-unit>
             <trans-unit id="formEditor.elements.Form.finisher.EmailToSender.editor.senderAddress.fieldExplanationText2">
                 <source>Set by site configuration and plugin</source>
                 <target>Wird durch die Site-Konfiguration und das Plugin gesetzt</target>
