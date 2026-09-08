@@ -39,3 +39,9 @@ services:
     tags:
       - name: event.listener
         identifier: 'form-extended/after-yaml-configuration-loaded'
+
+  WapplerSystems\FormExtended\EventListener\FileUploadSaveToFileMountListener:
+    tags:
+      - name: event.listener
+        event: TYPO3\CMS\Form\Event\BeforeRenderableIsAddedToFormEvent
+        identifier: 'form-extended/file-upload-save-to-file-mount-ordering'
