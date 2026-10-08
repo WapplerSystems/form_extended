@@ -52,7 +52,7 @@ class DoubleOptInController extends ActionController
 
                 if (isset($this->settings['forward']) && (int)$this->settings['forward'] > 0) {
                     $url = $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setTargetPageUid($this->settings['forward'])->build();
-                    $this->redirectToUri($url);
+                    return $this->redirectToUri($url);
                 }
 
                 $this->view->assign('success', true);
